@@ -1,0 +1,64 @@
+:root {
+    --colorA: #1F5C00;
+    --colorB:#c7dbe7;
+    --senaGreen: #39a900;
+    --colorC: #39a900;
+    --colorD: #231b8d;
+    --colorE: #A86608;
+    --colorTitle: #47cc04;
+}
+
+body {
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.title {
+    color: #47cc04;
+}
+
+.bttn  {
+    background-color: var(--senaGreen);
+    color: var(--colorC);
+}
+
+.bttn:hover {
+    background-color: #205a02;
+}
+
+.go-back:hover {
+    border-bottom: 1px solid var(--colorD);
+}
+
+.input-group-text {
+    background-color: var(--colorC);
+}
+
+.formCont {
+    background-color: var(--colorB);
+}
+
+.tittles {
+    font-size: 2rem;
+    color: var(--colorC);
+}
+
+.rLetter {
+    color: var(--colorD);
+    border-bottom: 1px solid var(--colorD);
+}
+
+.lLetter {
+    color: var(--colorE);
+}
+
+.logoSena {
+    margin-bottom: -40px;
+}
+
+.logoSena img {
+    border-radius: 50%;
+    box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.226);
+}
