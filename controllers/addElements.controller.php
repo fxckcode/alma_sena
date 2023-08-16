@@ -18,27 +18,24 @@ $cadena="<span class='input-group-text bg-success-subtle border-primary'>Element
             echo  $cadena."</select>";
 // Fin auto rellenar el formulario
 }
+
+
 //Agregar datos a la bd 
-if (!empty($_POST["btnAdd"])) {
-  if (!empty($_POST["listaCant"])) {
-    // echo $_POST["lista2"];
-    $idC= $_POST["lista2"];
-    $cant= $_POST["listaCant"];
-    $nota= $_POST["nota"];
-    // echo $idC;
-    $sqlId= $conexion->query ("UPDATE `elementos` SET `existencias`= `existencias`+$cant, `observacion` = '$nota' WHERE `elementos`.`idElemento` = $idC");
-    if ($sqlId==1) {
-      header ("Location:../views/entradas.php");
-      echo '<div class="alert alert-success text-center"><strong>Elementos agregados.</strong></div>';
-      } else {
-        header ("Location:../views/entradas.php");
-        echo '<div class="alert alert-danger text-center"><strong>ERROR No se agregaron los elementos.</strong></div>';
-  }
-  
-  }
-  else {
-    header ("Location:../views/entradas.php");
-    echo '<div class="alert alert-danger text-center"><strong>Nada para actualizar.</strong></div>';
+  if (isset($_POST["listaCat"])) {
+    $categoria = intval($_POST['listaCat']);
+    $nombre_elemento = $_POST['nombre_elemento'];
+    $talla  = intval($_POST['talla']);
+    $marca = $_POST['marca'];
+    $color = $_POST['color'];
+    $cantidad = intval($_POST['listaCant']);
+    $nota = $_POST['nota'];
+    $conexion->query("INSERT INTO elementos(fkCategoria, fkTalla, elemento, marca, color, existencias, observacion) VALUES (".$categoria.", ".$talla.", '".$nombre_elemento."', '".$marca."', '".$color."', ".$cantidad.", '".$nota."')");
 }
 
+// Actualizar cantidad para el inventario
+if (isset($_POST['cantidad'])){
+  $cantidad = intval($_POST['cantidad']);
+  $idElemento = intval($_POST['elementos']);
+  $cantidadOld = $conexion->query("SELECT e.existenicas WHERE elementos e");
+  $conexion->query('UPDATE `elementos` SET existencias='.$cantidad.' WHERE idElemento='.$idElemento);
 }
