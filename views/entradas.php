@@ -49,9 +49,6 @@ include("../controllers/addElements.controller.php");
           <li class="nav-item">
             <a class="nav-link mx-2" href="cambios.php">Cambios</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="elementosGestionar.php">Agregar Elementos</a>
-          </li>
         </ul>
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
           <li class="nav-item mx-2">
@@ -86,8 +83,8 @@ include("../controllers/addElements.controller.php");
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarExistencias">
         Agregar existencias
       </button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Agregar un Elemento
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#agregarElemento">
+        Agregar un elemento
       </button>
     </div>
 
@@ -100,83 +97,101 @@ include("../controllers/addElements.controller.php");
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form method="post" id="formAddCant">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
+                <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
+                  <?php
+                  $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
+                  while ($categorias = $sqlCategorias->fetch_object()) {
+                  ?>
+                    <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
+                  <?php } ?>
+                </select>
+              </div>
 
+              <!-- contenedor para el select nombre -->
+              <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
+                <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant" />
+              </div>
+
+              <div class="input-group">
+                <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
+                <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
+              </div>
+
+              <div>
+                <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
+              </div>
+            </form>
           </div>
-          <form method="post" id="formAddCant">
-            <div class="input-group mb-3">
-              <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-              <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
-                <?php
-                $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
-                while ($categorias = $sqlCategorias->fetch_object()) {
-                ?>
-                  <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
-                <?php } ?>
-              </select>
-            </div>
-
-            <!-- contenedor para el select nombre -->
-            <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
-
-            <div class="input-group mb-3">
-              <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-              <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant" />
-            </div>
-
-            <div class="input-group">
-              <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-              <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
-            </div>
-
-            <div>
-              <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
-            </div>
-          </form>
         </div>
       </div>
     </div>
 
-    <!-- Modal Para agregar existencias -->
-    <div class="modal fade" id="agregarExistencias" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Para agregar un elementos nuevo -->
+    <div class="modal fade" id="agregarElemento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content p-3">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar existencias</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar un elemento nuevo</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form id="formAddElement" method="post">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
+                <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="listaCat">
+                  <?php
+                  $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
+                  while ($categorias = $sqlCategorias->fetch_object()) {
+                  ?>
+                    <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
+                  <?php } ?>
+                </select>
+              </div>
 
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary">Nombre</span>
+                <input type="text" class="form-control border-primary" name="nombre_elemento" id="nombre_elemento">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary" id="">Tallas</span>
+                <select class="listaCat form-select pe-5 border-primary" id="talla" name="talla">
+                  <option value="">Seleccionar...</option>
+                  <?php
+                  $sqlTallas = $conexion->query("SELECT * FROM tallas WHERE 1");
+                  while ($tallas = $sqlTallas->fetch_object()) {
+                  ?>
+                    <option value="<?= $tallas->idTalla ?>"><?= $tallas->tallas ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary">Marca</span>
+                <input type="text" class="form-control border-primary" name="marca" id="marca">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary">color</span>
+                <input type="text" class="form-control border-primary" name="color" id="color">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
+                <input type="number" class="listaCant form-control border-primary" name="listaCant" id="cantidad" />
+              </div>
+
+              <div class="input-group">
+                <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
+                <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="notaCreate"></textarea>
+              </div>
+              <div>
+                <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
+              </div>
+            </form>
           </div>
-          <form method="post" id="formAddCant">
-            <div class="input-group mb-3">
-              <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-              <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
-                <?php
-                $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
-                while ($categorias = $sqlCategorias->fetch_object()) {
-                ?>
-                  <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
-                <?php } ?>
-              </select>
-            </div>
-
-            <!-- contenedor para el select nombre -->
-            <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
-
-            <div class="input-group mb-3">
-              <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-              <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant" />
-            </div>
-
-            <div class="input-group">
-              <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-              <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
-            </div>
-
-            <div>
-              <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -236,8 +251,9 @@ include("../controllers/addElements.controller.php");
   <script src="../csss/DataTables/datatables.min.js"></script>
   <script>
     new DataTable("#tableInventario")
-  </script>
+  </script> 
   <script src="../js/entradas.js"></script>
+  <script src="../js/elementosGestionar.js"></script>
   <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
 </body>
 

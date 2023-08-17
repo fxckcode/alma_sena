@@ -41,9 +41,6 @@ if (empty($_SESSION['id'])) {
           <li class="nav-item">
             <a class="nav-link mx-2 active" aria-current="page" href="#">Cambios</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="elementosGestionar.php">Agregar Elementos</a>
-          </li>
         </ul>
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
           <li class="nav-item mx-2">

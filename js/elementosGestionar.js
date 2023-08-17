@@ -85,8 +85,8 @@ $("#formAddElement").submit(function (event) {
                     talla: $("#talla option:selected").val(),
                     marca: $("#marca").val(),
                     color: $("#color").val(),
-                    listaCant: $("#listaCant").val(),
-                    nota: $("#nota").val(),
+                    listaCant: $("#cantidad").val(),
+                    nota: $("#notaCreate").val()
                 },
                 success: () => {
                     Swal.fire(
