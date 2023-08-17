@@ -61,7 +61,7 @@ include("../controllers/addElements.controller.php");
     </div>
   </div>
   <hr />
-  
+
   <!-- Contenedor formulario -Form container -->
   <div class="container-fluid row">
     <!-- Formulario de adición -->
@@ -70,30 +70,30 @@ include("../controllers/addElements.controller.php");
       <div class="w-100 d-flex justify-content-center align-items-center border-primary mb-3">
         <span class="text-danger text-uppercase">
           Agregar existencias al inventario</span>
-        </div>
-        
-        <?php
+      </div>
+
+      <?php
       include '../controllers/delElements.controller.php';
       include '../controllers/addElements.controller.php';
       ?>
 
 
-<form method="post" id="formAddCant">
-  <div class="input-group mb-3">
-    <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-    <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
-            <?php 
-              $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
-              while ($categorias = $sqlCategorias->fetch_object()) {
-                ?>
+      <form method="post" id="formAddCant">
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
+          <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
+            <?php
+            $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
+            while ($categorias = $sqlCategorias->fetch_object()) {
+            ?>
               <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
-              <?php } ?>
-            </select>
-          </div>
+            <?php } ?>
+          </select>
+        </div>
 
-          <!-- contenedor para el select nombre -->
-          <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
-          
+        <!-- contenedor para el select nombre -->
+        <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
+
         <!-- <div class="input-group mb-3">
           <span class="input-group-text bg-success-subtle border-primary">Marca></span>
           <input type="text" class="form-control border-primary" name="marca">
@@ -101,14 +101,14 @@ include("../controllers/addElements.controller.php");
 
         <div class="input-group mb-3">
           <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-          <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant"/>
+          <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant" />
         </div>
-        
+
         <div class="input-group">
           <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
           <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
         </div>
-        
+
         <div>
           <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
         </div>
@@ -135,7 +135,7 @@ include("../controllers/addElements.controller.php");
           <?php
           $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
             as t where e.fkCategoria=c.idCategoria AND e.fkTalla=t.idTalla");
-            while ($tableData = $sqlElm->fetch_object()) { ?>
+          while ($tableData = $sqlElm->fetch_object()) { ?>
             <tr>
               <td><?= $tableData->nombreCat ?></td>
               <td><?= $tableData->elemento ?></td>
@@ -147,9 +147,9 @@ include("../controllers/addElements.controller.php");
               <td class="d-flex flex-row gap-1">
                 <!-- Botón editar -->
                 <a class="btn btn-small btn-warning" href="modificarElementos.php?id=<?= $tableData->idElemento ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                </svg>
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
                 </a>
                 <!-- Botón eliminar -->
                 <a onclick="return eliminar('<?php echo $tableData->idElemento; ?>')" class="btn btn-small btn-danger">
@@ -160,21 +160,21 @@ include("../controllers/addElements.controller.php");
                 </a>
               </td>
             </tr>
-            <?php } ?>
-          </tbody>
-        </table>
-      </div>
+          <?php } ?>
+        </tbody>
+      </table>
     </div>
-    
-    <hr />
-    <!-- fin de formulario -->
-    
-    <!-- Script para borrar los alerts -->
-    <script src="../csss/DataTables/datatables.min.js"></script>
-    <script>
-      new DataTable("#tableInventario")
-    </script>
-    <script src="../js/entradas.js"></script>
+  </div>
+
+  <hr />
+  <!-- fin de formulario -->
+
+  <!-- Script para borrar los alerts -->
+  <script src="../csss/DataTables/datatables.min.js"></script>
+  <script>
+    new DataTable("#tableInventario")
+  </script>
+  <script src="../js/entradas.js"></script>
 </body>
 
 </html>
