@@ -31,11 +31,3 @@ $cadena="<span class='input-group-text bg-success-subtle border-primary'>Element
     $nota = $_POST['nota'];
     $conexion->query("INSERT INTO elementos(fkCategoria, fkTalla, elemento, marca, color, existencias, observacion) VALUES (".$categoria.", ".$talla.", '".$nombre_elemento."', '".$marca."', '".$color."', ".$cantidad.", '".$nota."')");
 }
-
-// Actualizar cantidad para el inventario
-if (isset($_POST['cantidad'])){
-  $cantidad = intval($_POST['cantidad']);
-  $idElemento = intval($_POST['elementos']);
-  $cantidadOld = $conexion->query("SELECT e.existenicas WHERE elementos e");
-  $conexion->query('UPDATE `elementos` SET existencias='.$cantidad.' WHERE idElemento='.$idElemento);
-}

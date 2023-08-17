@@ -20,6 +20,8 @@ include("../controllers/addElements.controller.php");
   <title>Movimientos</title>
   <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
   <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
+  <script src="../utils/package/dist/sweetalert2.all.min.js"></script>
+  <script src="../utils/package/dist/sweetalert2.min.css"></script>
 </head>
 
 <body class="vh-100">
@@ -59,7 +61,7 @@ include("../controllers/addElements.controller.php");
     </div>
   </div>
   <hr />
-
+  
   <!-- Contenedor formulario -Form container -->
   <div class="container-fluid row">
     <!-- Formulario de adición -->
@@ -68,45 +70,45 @@ include("../controllers/addElements.controller.php");
       <div class="w-100 d-flex justify-content-center align-items-center border-primary mb-3">
         <span class="text-danger text-uppercase">
           Agregar existencias al inventario</span>
-      </div>
-
-      <?php
+        </div>
+        
+        <?php
       include '../controllers/delElements.controller.php';
       include '../controllers/addElements.controller.php';
       ?>
 
 
-      <form action="../controllers/addElements.controller.php" method="post">
-        <div class="input-group mb-3">
-          <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-          <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="listaCat">
+<form method="post" id="formAddCant">
+  <div class="input-group mb-3">
+    <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
+    <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
             <?php 
               $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
               while ($categorias = $sqlCategorias->fetch_object()) {
-            ?>
+                ?>
               <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
-             <?php } ?>
-          </select>
-        </div>
+              <?php } ?>
+            </select>
+          </div>
 
-        <!-- contenedor para el select nombre -->
-        <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
-
+          <!-- contenedor para el select nombre -->
+          <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
+          
         <!-- <div class="input-group mb-3">
-			<span class="input-group-text bg-success-subtle border-primary">Marca></span>
-			<input type="text" class="form-control border-primary" name="marca">
-		</div> -->
+          <span class="input-group-text bg-success-subtle border-primary">Marca></span>
+          <input type="text" class="form-control border-primary" name="marca">
+        </div> -->
 
         <div class="input-group mb-3">
           <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-          <input type="text" class="listaCant form-control border-primary" name="listaCant" />
+          <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant"/>
         </div>
-
+        
         <div class="input-group">
           <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-          <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea"></textarea>
+          <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
         </div>
-
+        
         <div>
           <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />
         </div>
@@ -145,9 +147,9 @@ include("../controllers/addElements.controller.php");
               <td class="d-flex flex-row gap-1">
                 <!-- Botón editar -->
                 <a class="btn btn-small btn-warning" href="modificarElementos.php?id=<?= $tableData->idElemento ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                  </svg>
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
                 </a>
                 <!-- Botón eliminar -->
                 <a onclick="return eliminar('<?php echo $tableData->idElemento; ?>')" class="btn btn-small btn-danger">
@@ -158,70 +160,21 @@ include("../controllers/addElements.controller.php");
                 </a>
               </td>
             </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-
-  <hr />
-  <!-- fin de formulario -->
-
-  <!-- Script para borrar los alerts -->
-  <script>
-    //AutoCierre
-    window.setTimeout(function() {
-      $(".alert")
-        .fadeTo(2500, 0)
-        .slideDown(1000, function() {
-          $(this).remove();
-        });
-    }, 2000); //2 segundos y desaparece
-  </script>
-  <!-- Script para los elementos select -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("#listaCat").val(1);
-      recargarLista();
-
-      $("#listaCat").change(function() {
-        recargarLista();
-      });
-    });
-  </script>
-
-  <script type="text/javascript">
-    function recargarLista() {
-      $.ajax({
-        type: "POST",
-        url: "../controllers/addElements.controller.php",
-        data: "categoria=" + $("#listaCat").val(),
-        success: function(r) {
-          $("#select2lista").html(r);
-        },
-      });
-    }
-  </script>
-
-  <!-- ↓Script para confirmar eliminar elemento -->
-  <script>
-    function eliminar(id) {
-
-      var opcion = confirm("Clicka en Aceptar o Cancelar");
-      if (opcion == true) {
-
-
-        alert(id);
-
-      } else {
-        alert("Has clickado Cancelar");
-      }
-    }
-  </script>
-  <script src="../csss/DataTables/datatables.min.js"></script>
-  <script>
-    new DataTable("#tableInventario")
-  </script>
+    
+    <hr />
+    <!-- fin de formulario -->
+    
+    <!-- Script para borrar los alerts -->
+    <script src="../csss/DataTables/datatables.min.js"></script>
+    <script>
+      new DataTable("#tableInventario")
+    </script>
+    <script src="../js/entradas.js"></script>
 </body>
 
 </html>
