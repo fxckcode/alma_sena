@@ -17,57 +17,70 @@ if (empty($_SESSION['id'])) {
 </head>
 
 <body>
-  <div class="container-fluid">
-    
-    <div class="row">
-      <div class="btn border-info bg-success text-white mt-4 shadow-sm  col-2">
-        <?php 
-          echo $_SESSION["nombre"]
-        ?>
+  <?php
+  $conexion = mysqli_connect("localhost", "root", "", "almasenadb");
+  $where = "";
+
+  if (isset($_GET['enviar'])) {
+    $busqueda = $_GET['busqueda'];
+
+
+    if (isset($_GET['busqueda'])) {
+      $where = "WHERE user.correo LIKE'%" . $busqueda . "%' OR nombre  LIKE'%" . $busqueda . "%'
+    OR telefono  LIKE'%" . $busqueda . "%'";
+    }
+  }
+  ?>
+  <nav class="navbar navbar-expand-lg navbar-light bg-success-subtle p-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
         <?php
-$conexion=mysqli_connect("localhost","root","","almasenadb"); 
-$where="";
+        echo $_SESSION["nombre"];
+        echo " | rol: ";
+        echo $_SESSION['rol'];
+        ?>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-if(isset($_GET['enviar'])){
-  $busqueda = $_GET['busqueda'];
-
-
-	if (isset($_GET['busqueda']))
-	{
-		$where="WHERE user.correo LIKE'%".$busqueda."%' OR nombre  LIKE'%".$busqueda."%'
-    OR telefono  LIKE'%".$busqueda."%'";
-	}
-  
-}
-?>
-      </div>
-
-      <div class="col-9">
-        <ul class="nav nav-tabs">
+      <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
-            <a class="nav-link nav-link border-primary-subtle bg-info-subtle" aria-current="page" href="entradas.php">Entradas</a>
+            <a class="nav-link mx-2" href="entradas.php">Entradas</a>
           </li>
           <li class="nav-item">
-            <p class="nav-link active">Salidas</p>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Salidas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link border-primary-subtle bg-info-subtle" href="cambios.php">Cambios</a>
+            <a class="nav-link mx-2" href="cambios.php">Cambios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link border-primary-subtle bg-info-subtle" href="usuariosGestionar.php">Gestionar Usuarios Cliente</a>
+            <a class="nav-link mx-2" href="elementosGestionar.php">Agregar Elementos</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
+          <li class="nav-item mx-2">
+            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-google-plus-square"></i></a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
           </li>
         </ul>
       </div>
-      <div class="col-1">
-        <div>
-          <button class="btn btn-danger w-100 mt-4 shadow-sm "><a class="text-decoration-none text-white"
-              href="../controllers/logout.php">Salir</a></button>
-          <i class="bi bi-box-arrow-left"></i>
-        </div>
+      <div>
+        <button class="btn btn-danger shadow-sm">
+          <a class="text-decoration-none text-white" href="../controllers/logout.php">Cerrar Sesión</a>
+        </button>
+        <i class="bi bi-box-arrow-left"></i>
       </div>
     </div>
-  
-<hr>
+  </nav>
+
+  <hr>
   <div class="form-floating input-group mt-1 justify-content-center align-items-center">
     <H2>A quién se entregarán los elementos?</H2>
   </div>
@@ -75,99 +88,97 @@ if(isset($_GET['enviar'])){
   <div class="d-flex justify-content-center align-items-center vh-800">
     <div class=" p-5 rounded-5 text-secondary shadow" style="width: 70rem">
 
-<!-- Buscar usuario -->
-<form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar usuario para nueva entrega">
-      <hr>
+      <!-- Buscar usuario -->
+      <form class="d-flex">
+        <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Buscar usuario para nueva entrega">
+        <hr>
       </form>
       <br>
 
 
       <table class="table table-striped table_id ">
 
-                  
-                        <thead>    
-                        <tr>
-                        <th>Nombre</th>
-                        <th>Identificación</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
 
-$conexion=mysqli_connect("localhost","root","","almasenadb");               
-$SQL="SELECT usuarios.id, usuarios.user, usuarios.email, usuarios.telefono, usuarios.rol FROM usuarios
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Identificación</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+
+          $conexion = mysqli_connect("localhost", "root", "", "almasenadb");
+          $SQL = "SELECT usuarios.id, usuarios.user, usuarios.email, usuarios.telefono, usuarios.rol FROM usuarios
 $where";
-$dato = mysqli_query($conexion, $SQL);
+          $dato = mysqli_query($conexion, $SQL);
 
-if($dato -> num_rows >0){
-    while($fila=mysqli_fetch_array($dato)){
-    
-?>
-<tr>
-<td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user']?>"><?php echo $fila['user']; ?></a></td>
-<td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user']?>"><?php echo $fila['id']; ?></a></td>
-<td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user']?>"><?php echo $fila['email']; ?></a></td>
-<td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user']?>"><?php echo $fila['telefono']; ?></a></td>
+          if ($dato->num_rows > 0) {
+            while ($fila = mysqli_fetch_array($dato)) {
 
-
+          ?>
+              <tr>
+                <td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user'] ?>"><?php echo $fila['user']; ?></a></td>
+                <td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user'] ?>"><?php echo $fila['id']; ?></a></td>
+                <td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user'] ?>"><?php echo $fila['email']; ?></a></td>
+                <td><a class="text-black text-uppercase text-decoration-none" href="salidasPage2.php?usrId=<?= $fila['user'] ?>"><?php echo $fila['telefono']; ?></a></td>
 
 
-</tr>
 
 
-<?php
-}
-}else{
+              </tr>
 
-    ?>
-    <tr class="text-center">
-    <td colspan="16">No existen registros</td>
-    </tr>
 
-    
-    <?php
-    
-}
+            <?php
+            }
+          } else {
 
-?>
+            ?>
+            <tr class="text-center">
+              <td colspan="16">No existen registros</td>
+            </tr>
 
-      <!-- inicio formulario -->
 
-      <!-- fin de formulario -->
+          <?php
+
+          }
+
+          ?>
+
+          <!-- inicio formulario -->
+
+          <!-- fin de formulario -->
     </div>
-  </div>
 
-<!-- Script para los elementos select -->
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#dniCode').val(1);
-		recargarLista();
+    <!-- Script para los elementos select -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#dniCode').val(1);
+        recargarLista();
 
-		$('#dniCode').change(function(){
-			recargarLista(); 
-		});
-	})
-</script>
+        $('#dniCode').change(function() {
+          recargarLista();
+        });
+      })
+    </script>
 
-<script type="text/javascript">
-	function recargarLista(){
-		$.ajax({
-			type:"POST",
-			url:"../controllers/addElements.controller.php",
-			data:"categoria=" + $('#dniCode').val(),
-			success:function(r){
-				$('#select2lista').html(r);
-			}
-		});
-	}
-</script>
-<script src="../js/acciones.js"></script>
-<script src="../js/buscador.js"></script>
-
+    <script type="text/javascript">
+      function recargarLista() {
+        $.ajax({
+          type: "POST",
+          url: "../controllers/addElements.controller.php",
+          data: "categoria=" + $('#dniCode').val(),
+          success: function(r) {
+            $('#select2lista').html(r);
+          }
+        });
+      }
+    </script>
+    <script src="../js/acciones.js"></script>
+    <script src="../js/buscador.js"></script>
+    <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
