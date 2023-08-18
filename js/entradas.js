@@ -205,9 +205,45 @@ $("#editElements").on("show.bs.modal", (event) => {
             });
         }
     });
-
-
-
 })
+
+
+$("#editForm").submit(function (event) {
+    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Quieres crear un nuevo elemento?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: "../controllers/updElements.controller.php",
+                data: {
+                    idElemento: $("#lista2 option:selected").val(),
+                    cantidad: $("#listaCant").val(),
+                    nota: $("#nota").val(),
+                    btnAdd: true
+                },
+                success: () => {
+                    Swal.fire(
+                        'Elemento Creado',
+                        'El elemento ha sido creado exitosamente!!',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    })
+                }, catch: (error) => {
+                    console.error(error)
+                }
+            })
+        }
+    })
+});
 
 
