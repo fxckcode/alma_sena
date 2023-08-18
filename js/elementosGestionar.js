@@ -80,7 +80,7 @@ $("#formAddElement").submit(function (event) {
                 type: 'POST',
                 url: "../controllers/addElements.controller.php",
                 data: {
-                    listaCat: $("#listaCat option:selected").val(),
+                    listaCat: $("#listaCat1 option:selected").val(),
                     nombre_elemento: $("#nombre_elemento").val(),
                     talla: $("#talla option:selected").val(),
                     marca: $("#marca").val(),
