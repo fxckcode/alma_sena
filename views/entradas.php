@@ -252,7 +252,7 @@ include("../controllers/addElements.controller.php");
           </div>
           <div class="modal-body">
             <!-- Generate form -->
-            <form action="" method="post" id="editForm">
+            <form method="post" id="editForm" action="../controllers/updElements.controller.php">
 
             </form>
           </div>

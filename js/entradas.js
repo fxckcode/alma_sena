@@ -82,7 +82,6 @@ function eliminar(id) { // Evita que el formulario se envíe automáticamente
 
 $("#formAddCant").submit(function (event) {
     event.preventDefault();
-    console.log($("#nota").val()) // Evita que el formulario se envíe automáticamente
     Swal.fire({
         title: '¿Estás seguro?',
         text: "¿Quieres crear un nuevo elemento?",
@@ -134,9 +133,9 @@ $("#editElements").on("show.bs.modal", (event) => {
         dataType: 'json',
         success: function (data) {
             form.html(`
-            <input type="inputId" id="inputId" name="inputId" value="${data.idElemento}" hidden="true">
-            <input type="inputId" id="inputTalla" name="inputTalla" value="${data.fkTalla}" hidden="true">
-            <input type="inputCat" id="inputCat" name="inputCat" value="${data.fkCategoria}" hidden="true">
+            <input type="hidden" id="id" name="inputId" value="${data.idElemento}">
+            <input type="hidden" id="inputTalla" name="inputTalla" value="${data.fkTalla}">
+            <input type="hidden" id="inputCat" name="inputCat" value="${data.fkCategoria}">
               <div class="input-group mb-3">
               <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
               <select class="listaCat form-select pe-5 border-primary" id="catSelect" name="categoria">
@@ -145,7 +144,7 @@ $("#editElements").on("show.bs.modal", (event) => {
 
               <div class="input-group mb-3">
                   <span class="input-group-text bg-success-subtle border-primary" id="">Nombre</span>
-                  <input select class="inputName pe-5 form-control border-primary" id="inputName" name="inputName" value="${data.elemento}">
+                  <input class="inputName pe-5 form-control border-primary" id="inputName" name="inputName" value="${data.elemento}">
               </div>
 
               <div class="input-group mb-3">
@@ -188,7 +187,6 @@ $("#editElements").on("show.bs.modal", (event) => {
                     $("#catSelect").html(
                         data.map((d) => `<option value="${d.idCategoria}" ${categoriaId === parseInt(d.idCategoria) ? 'selected' : ''}>${d.nombreCat}</option>`)
                     );
-                    console.log(data);
                 }
             });
             $.ajax({
@@ -200,19 +198,17 @@ $("#editElements").on("show.bs.modal", (event) => {
                     $("#tallaSelect").html(
                         data.map((d) => `<option value="${d.idTalla}" ${tallaId === parseInt(d.idTalla) ? 'selected' : ''}>${d.tallas}</option>`)
                     );
-                    console.log(data);
                 }
             });
         }
     });
 })
 
-
 $("#editForm").submit(function (event) {
     event.preventDefault(); // Evita que el formulario se envíe automáticamente
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Quieres crear un nuevo elemento?",
+        text: "¿Quieres actualizar este elemento?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -221,29 +217,36 @@ $("#editForm").submit(function (event) {
         cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: "../controllers/updElements.controller.php",
-                data: {
-                    idElemento: $("#lista2 option:selected").val(),
-                    cantidad: $("#listaCant").val(),
-                    nota: $("#nota").val(),
-                    btnAdd: true
-                },
-                success: () => {
-                    Swal.fire(
-                        'Elemento Creado',
-                        'El elemento ha sido creado exitosamente!!',
-                        'success'
-                    ).then(() => {
-                        location.reload();
-                    })
-                }, catch: (error) => {
-                    console.error(error)
-                }
-            })
+                $.ajax({
+                    type: 'POST',
+                    url: '../controllers/updElements.controller.php',
+                    data: {
+                        inputId: $("#id").val(),
+                        categoria: $("#catSelect option:selected").val(),
+                        inputName: $("#inputName").val(),
+                        talla: $("#tallaSelect option:selected").val(),
+                        inputMarca: $("#inputMarca").val(),
+                        inputColor: $("#inputColor").val(),
+                        inputExists: $("#inputExists").val(),
+                        inputNota: $("#inputNota").val()
+                    },
+                    success: () => {
+                        Swal.fire(
+                            'Elemento actualizado',
+                            'El elemento ha sido actualizado exitosamente!!',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    }, catch: (error) => {
+                        console.error(error)    
+                    }
+                })
         }
     })
 });
+
+
+
 
 
