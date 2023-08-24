@@ -42,7 +42,7 @@ include("../controllers/dbConection.php");
             </div>
         </div>
     </nav>
-    <div class="container flex flex-column gap-6">
+    <div class="container flex flex-column gap-6 mt-3">
         <h3>Inventario Actual</h3>
         <table id="tableInventarioUser" class="table table-striped table-bordered table-responsive table-hover nowrap" style="width: 100%;">
             <thead class="bg-info">
