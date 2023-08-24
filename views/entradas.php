@@ -17,6 +17,7 @@ include("../controllers/addElements.controller.php");
   <link rel="shortcut icon" href="../assets/senaGreen.png" type="image/x-icon" />
   <!-- BootStrap -->
   <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../csss/DataTables/Responsive-2.5.0/css/responsive.dataTables.min.css">
   <title>Movimientos</title>
   <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
   <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
@@ -29,15 +30,11 @@ include("../controllers/addElements.controller.php");
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <?php
+        echo "Hola, ";
         echo $_SESSION["nombre"];
-        echo " | rol: ";
-        echo $_SESSION['rol'];
         ?>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
+      
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
@@ -68,6 +65,9 @@ include("../controllers/addElements.controller.php");
         </button>
         <i class="bi bi-box-arrow-left"></i>
       </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
   </nav>
   <hr />
@@ -196,7 +196,7 @@ include("../controllers/addElements.controller.php");
     </div>
 
     <!-- Listado de elementos -->
-    <table id="tableInventario" class="table table-striped table-bordered table-responsive">
+    <table id="tableInventario" class="table table-striped table-bordered table-responsive table-hover nowrap" style="width: 100%;">
       <thead class="bg-info">
         <tr>
           <th scope="col">Categoría</th>
@@ -222,7 +222,7 @@ include("../controllers/addElements.controller.php");
             <td><?= $tableData->color ?></td>
             <td><?= $tableData->existencias ?></td>
             <td><?= $tableData->observacion ?></td>
-            <td class="d-flex flex-row gap-1">
+            <td>
             <!-- href="modificarElementos.php?id=<?= $tableData->idElemento ?>" -->
               <!-- Botón editar -->
               <a class="btn btn-small btn-warning"  data-id="<?= $tableData->idElemento ?>" data-bs-toggle="modal" data-bs-target="#editElements">
@@ -267,11 +267,14 @@ include("../controllers/addElements.controller.php");
   <!-- Script para borrar los alerts -->
   <script src="../csss/DataTables/datatables.min.js"></script>
   <script>
-    new DataTable("#tableInventario")
+    new DataTable("#tableInventario", {
+      responsive: true 
+    })
   </script>
   <script src="../js/entradas.js"></script>
   <script src="../js/elementosGestionar.js"></script>
   <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
 </body>
 
 </html>

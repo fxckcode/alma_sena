@@ -1,10 +1,11 @@
 <?php
     session_start();
     
-    if($_SESSION['rol'] == "user") {
+    
+    if ($_SESSION['rol'] == "admin") {
         header("Location:../views/entradas.php");
-    }else if ($_SESSION['rol'] == "admin") {
-        header("Location:../views/administracion.php");
+    } if($_SESSION['rol'] == "user") {
+        header("Location:../views/home.php");
     }
     
 

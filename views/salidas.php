@@ -3,6 +3,9 @@ session_start();
 if (empty($_SESSION['id'])) {
   header("Location:../index.php");
 }
+if ($_SESSION['rol'] == 'user') {
+  header("Location: ./home.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,9 +38,8 @@ if (empty($_SESSION['id'])) {
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <?php
+        echo "Hola, ";
         echo $_SESSION["nombre"];
-        echo " | rol: ";
-        echo $_SESSION['rol'];
         ?>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
