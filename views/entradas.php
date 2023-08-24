@@ -3,6 +3,9 @@ session_start();
 if (empty($_SESSION['id'])) {
   header("Location:../index.php");
 }
+if ($_SESSION['rol'] == 'user') {
+  header("Location: ./home.php");
+}
 include("../controllers/dbConection.php");
 include("../controllers/addElements.controller.php");
 ?>

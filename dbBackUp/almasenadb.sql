@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-08-2023 a las 18:25:26
+-- Tiempo de generación: 24-08-2023 a las 18:07:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -43,7 +43,10 @@ INSERT INTO `categorias` (`idCategoria`, `nombreCat`) VALUES
 (4, 'Auditivo'),
 (5, 'Respiratorio'),
 (6, 'Prendas'),
-(7, 'Calzado');
+(7, 'Calzado'),
+(40, 'Batas'),
+(41, 'Prueba 2'),
+(42, 'Otros');
 
 -- --------------------------------------------------------
 
@@ -67,25 +70,8 @@ CREATE TABLE `elementos` (
 --
 
 INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`) VALUES
-(1, 4, 21, 'Tapa oidos de inserción', 'Sosega', 'Amarillo', 200, 'De los más nuevos!'),
-(2, 4, 21, 'Tapa oidos tipo copa', 'Sosega', 'varios', 112, ''),
-(3, 3, 21, 'chimpagafas', 'Sosega', 'negro', 152750, 'Hola soy una nota ♫'),
-(4, 7, 7, 'Botas de seguridad', 'Saga', 'Café', 2596, ''),
-(6, 7, 8, 'Botas de seguridad', 'Saga', 'Café', 110, ''),
-(7, 7, 9, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(8, 7, 10, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(9, 7, 11, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(10, 7, 12, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(11, 7, 13, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(12, 7, 14, 'Botas de seguridad', 'Saga', 'Café', 110, ''),
-(13, 7, 15, 'Botas de seguridad', 'Saga', 'Café', 350, 'Las más pedidas.'),
-(14, 7, 16, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(15, 7, 17, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(16, 7, 18, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(17, 7, 19, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(18, 7, 20, 'Botas de seguridad', 'Saga', 'Café', 100, ''),
-(22, 3, 21, 'chimpagafas', 'Sosega', 'azul', 152751, 'Hola soy otra nota ♫'),
-(25, 7, 6, 'Botas de seguridad', 'Sosega', 'Café', 10, '');
+(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 15, 'Dos cajas'),
+(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 10, 'Tiene la caja nueva');
 
 -- --------------------------------------------------------
 
@@ -181,17 +167,17 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `user`, `telefono`, `password`, `email`, `rol`) VALUES
-(98752, 'Carlos Andrés Carne de res', '310310310', '7cec85c75537840dad40251576e5b757', 's@sss.com', 'cliente'),
-(12103539, 'Carlos Andrés Cubides', '321000254', '', 'ccubides@gmail.com', 'cliente'),
-(12104533, 'Federrico', '03108869831', '', 'adolfo1951@hotmail.co', 'cliente'),
-(12104535, 'Adolfo ', '3108869831', '', 'adolfo1951@hotmail.com', 'cliente'),
-(12104539, 'José Fernando Gonzales Pacheco', '3108869831', '', 'jfgp@mail.com', 'cliente'),
+(98752, 'Carlos Andrés Carne de res', '310310310', '7cec85c75537840dad40251576e5b757', 's@sss.com', 'user'),
+(12103539, 'Carlos Andrés Cubides', '321000254', '', 'ccubides@gmail.com', 'user'),
+(12104533, 'Federrico', '03108869831', '', 'adolfo1951@hotmail.co', 'user'),
+(12104535, 'Adolfo ', '3108869831', '', 'adolfo1951@hotmail.com', 'user'),
+(12104539, 'José Fernando Gonzales Pacheco', '3108869831', '', 'jfgp@mail.com', 'user'),
 (12265488, 'Max Power', '3108869831', '473803f0f2ebd77d83ee60daaa61f381', 'jafajardo8845@soy.sena.edu.co', 'admin'),
 (12388888, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com', 'user'),
 (106134531, 'Francisca', '0', '26588e932c7ccfa1df309280702fe1b5', 'fran@mail.com.co', 'user'),
-(123654789, 'José Fernando Gonzales Pacheco', '3108869831', '202cb962ac59075b964b07152d234b70', 'cachon@cuernos.com', 'cliente'),
-(325539287, 'Fernando Gonzales Pacheco', '325739528', '', 'pacheco@correo.com', 'cliente'),
-(1223334444, 'ferdinand', '3108869831', 'ebf6994fb3dacbfd95b8653d210b6bcc', '123@mail.co', 'cliente'),
+(123654789, 'José Fernando Gonzales Pacheco', '3108869831', '202cb962ac59075b964b07152d234b70', 'cachon@cuernos.com', 'user'),
+(325539287, 'Fernando Gonzales Pacheco', '325739528', '', 'pacheco@correo.com', 'user'),
+(1223334444, 'ferdinand', '3108869831', 'ebf6994fb3dacbfd95b8653d210b6bcc', '123@mail.co', 'user'),
 (2147483647, 'Usuario de Prueba', '0', 'd375af34cc08aba9a1cc9b6596a70c36', 'test@mail.co', 'user');
 
 --
@@ -247,13 +233,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `elementos`
 --
 ALTER TABLE `elementos`
-  MODIFY `idElemento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idElemento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `movimiento`
