@@ -26,27 +26,6 @@ function recargarLista() {
     });
 }
 
-$(document).ready(function () {
-    $("#listaCat1").val(1);
-    recargarLista();
-
-    $("#listaCat1").change(function () {
-        recargarLista();
-    });
-});
-
-function recargarLista() {
-    $.ajax({
-        type: "POST",
-        url: "../controllers/addElements.controller.php",
-        data: "categoria=" + $("#listaCat1").val(),
-        success: function (r) {
-            $("#select2lista").html(r);
-        },
-    });
-}
-
-
 function eliminar(id) { // Evita que el formulario se envíe automáticamente
     Swal.fire({
         title: '¿Estás seguro que quieres eliminar este elemento?',
@@ -123,9 +102,7 @@ $("#editElements").on("show.bs.modal", (event) => {
     var button = $(event.relatedTarget);
     var id = button.data('id');
     var form = $("#editForm")
-
-
-
+    
     $.ajax({
         url: '../controllers/getElementById.controller.php',
         type: 'GET',
