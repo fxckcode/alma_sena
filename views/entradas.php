@@ -23,6 +23,7 @@ include("../controllers/addElements.controller.php");
   <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
   <script src="../utils/package/dist/sweetalert2.all.min.js"></script>
   <script src="../utils/package/dist/sweetalert2.min.css"></script>
+  <link rel="stylesheet" href="../csss/generalStyles.css">
 </head>
 
 <body class="vh-100">
@@ -72,7 +73,7 @@ include("../controllers/addElements.controller.php");
   </nav>
   <hr />
   <!-- Contenedor formulario -Form container -->
-  <div class="container-fluid d-flex justify-content-center flex-column">
+  <div class="container d-flex justify-content-center flex-column">
 
     <?php
     include '../controllers/addElements.controller.php';
@@ -197,7 +198,7 @@ include("../controllers/addElements.controller.php");
 
     <!-- Listado de elementos -->
     <table id="tableInventario" class="table table-striped table-bordered table-responsive table-hover nowrap" style="width: 100%;">
-      <thead class="bg-info">
+      <thead class="formColumn">
         <tr>
           <th scope="col">Categoría</th>
           <th scope="col">Elemento</th>
