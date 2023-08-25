@@ -1,195 +1,175 @@
-<?php
-session_start();
+<?php session_start();
 if (empty($_SESSION['id'])) {
-  header("Location:../index.php");
+    header("Location:../index.php");
 }
 if ($_SESSION['rol'] == 'user') {
-  header("Location: ./home.php");
+    header("Location: ./home.php");
 }
-?>
+include("../controllers/dbConection.php"); ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="../assets/senaGreen.png" type="image/x-icon">
-  <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../csss/DataTables/Responsive-2.5.0/css/responsive.dataTables.min.css">
-  <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
-  <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../csss/generalStyles.css">
-  <title>Movimientos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/senaGreen.png" type="image/x-icon" />
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../csss/DataTables/Responsive-2.5.0/css/responsive.dataTables.min.css">
+    <title>Salidas</title>
+    <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
+    <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
+    <script src="../utils/package/dist/sweetalert2.all.min.js"></script>
+    <script src="../utils/package/dist/sweetalert2.min.css"></script>
+    <link rel="stylesheet" href="../csss/generalStyles.css">
 </head>
 
-<body class="vh-100">
-  <?php
-  $conexion = mysqli_connect("localhost", "root", "", "almasenadb");
-  $where = "";
+<body class="vh-100 d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-light bg-success-subtle p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <?php
+                echo "Hola, ";
+                echo $_SESSION["nombre"];
+                ?>
+            </a>
 
-  if (isset($_GET['enviar'])) {
-    $busqueda = $_GET['busqueda'];
-
-
-    if (isset($_GET['busqueda'])) {
-      $where = "WHERE user.correo LIKE'%" . $busqueda . "%' OR nombre  LIKE'%" . $busqueda . "%'
-    OR telefono  LIKE'%" . $busqueda . "%'";
-    }
-  }
-  ?>
-  <nav class="navbar navbar-expand-lg navbar-light bg-success-subtle p-3">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <?php
-        echo "Hola, ";
-        echo $_SESSION["nombre"];
-        ?>
-      </a>
-      
-      <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto ">
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="entradas.php">Entradas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 active" aria-current="page" href="#">Salidas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="cambios.php">Cambios</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
-          <li class="nav-item mx-2">
-            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-google-plus-square"></i></a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <button class="btn btn-danger shadow-sm">
-          <a class="text-decoration-none text-white" href="../controllers/logout.php">Cerrar Sesión</a>
-        </button>
-        <i class="bi bi-box-arrow-left"></i>
-      </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" aria-current="page" href="./entradas.php">Entradas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 active" href="salidas.php">Salidas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="cambios.php">Cambios</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-google-plus-square"></i></a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-dark h5" href="" target="blank"><i class="fab fa-facebook-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button class="btn btn-danger shadow-sm">
+                    <a class="text-decoration-none text-white" href="../controllers/logout.php">Cerrar Sesión</a>
+                </button>
+                <i class="bi bi-box-arrow-left"></i>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="container-fluid row p-4">
+        <div class="col-6 col-md-4">
+            <div class="d-flex gap-2 mb-3 align-items-center">
+                <h4 class="text-success">Crear salida de elementos</h4>
+                <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientos">Historial</a>
+            </div>
+            <form action="#" method="POST">
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-success-subtle border-primary" id="">Seleccionar Cliente</span>
+                    <select class="listaCat form-select pe-5 border-primary" id="listaUsers" name="listUsers" required>
+                        <option value="">Seleccionar...</option>
+                        <?php
+                        $sqlElm = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
+                        while ($tableData = $sqlElm->fetch_object()) { ?>
+                            <option value="<?= $tableData->id ?>"><?= $tableData->user ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Talla</th>
+                            <th scope="col">Existencias</th>
+                            <th scope="col">Interacción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyCar">
+                    </tbody>
+                </table>
+                <div class="w-full d-flex justify-content-center align-items-center">
+                    <button class="btn btn-primary btn-sm" type="submit">Crear Salida</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-md-8">
+            <table id="tableSalidas" class="table table-striped table-bordered table-responsive table-hover nowrap table-sm" style="width: 100%;">
+                <thead class="formColumn">
+                    <tr>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Elemento</th>
+                        <th scope="col">Talla</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Existencias</th>
+                        <th scope="col">Edición</th>
+                        <th scope="col">Observación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
+            as t where e.fkCategoria=c.idCategoria AND e.fkTalla=t.idTalla");
+                    while ($tableData = $sqlElm->fetch_object()) { ?>
+                        <tr>
+                            <td><?= $tableData->nombreCat ?></td>
+                            <td><?= $tableData->elemento ?></td>
+                            <td><?= $tableData->tallas ?></td>
+                            <td><?= $tableData->marca ?></td>
+                            <td><?= $tableData->color ?></td>
+                            <td><?= $tableData->existencias ?></td>
+                            <td>
+                                <a href="" class="btn btn-success">Agregar</a>
+                            </td>
+                            <td><?= $tableData->observacion ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </nav>
-  <div class="container flex flex-column gap-6">
-    <hr>
-    <div class="form-floating input-group mt-1 justify-content-center align-items-center mb-4">
-      <H3 class="text-success">A quién se entregarán los elementos?</H3>
+    <div class="modal fade modal-lg" id="historialMovimientos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content p-3">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Historial de movimientos</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table>
+                <thead>
+                    <th scope="col">id</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Elemento</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Fecha Salida</th>
+                </thead>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <!-- Buscar usuario -->
-    <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Buscar usuario para nueva entrega">
-      <hr>
-    </form>
-    <br>
-
-
-    <table id="usersTable" class="table table-striped table_id table-bordered table-responsive table-hover nowra" style="width: 100%;">
-
-
-      <thead>
-        <tr class="formColumn">
-          <th scope="col">Nombre</th>
-          <th scope="col">Identificación</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Telefono</th>
-          <th scope="col">Interacción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-
-        $conexion = mysqli_connect("localhost", "root", "", "almasenadb");
-        $SQL = "SELECT usuarios.id, usuarios.user, usuarios.email, usuarios.telefono, usuarios.rol FROM usuarios
-$where";
-        $dato = mysqli_query($conexion, $SQL);
-
-        if ($dato->num_rows > 0) {
-          while ($fila = mysqli_fetch_array($dato)) {
-
-        ?>
-            <tr>
-              <td><?php echo $fila['user']; ?></td>
-              <td><?php echo $fila['id']; ?></td>
-              <td><?php echo $fila['email']; ?></td>
-              <td><?php echo $fila['telefono']; ?></td>
-              <td><span class="btn btn-small btn-success">Generar Entrega</span></td>
-            </tr>
-
-
-          <?php
-          }
-        } else {
-
-          ?>
-          <tr class="text-center">
-            <td colspan="16">No existen registros</td>
-          </tr>
-
-
-        <?php
-
-        }
-
-        ?>
-
-        <!-- inicio formulario -->
-      </tbody>
-    </table>
-  </div>
-
 </body>
-<!-- fin de formulario -->
-
-<!-- Script para los elementos select -->
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#dniCode').val(1);
-    recargarLista();
-
-    $('#dniCode').change(function() {
-      recargarLista();
-    });
-  })
-</script>
-
-<script type="text/javascript">
-  function recargarLista() {
-    $.ajax({
-      type: "POST",
-      url: "../controllers/addElements.controller.php",
-      data: "categoria=" + $('#dniCode').val(),
-      success: function(r) {
-        $('#select2lista').html(r);
-      }
-    });
-  }
-</script>
-<script src="../js/acciones.js"></script>
-<script src="../js/buscador.js"></script>
 <script src="../csss/DataTables/datatables.min.js"></script>
-  <script>
-    new DataTable("#usersTable", {
-      responsive: true 
+<script src="../csss/bootstrap/js/bootstrap.min.js"></script>
+<script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
+<script>
+    new DataTable("#tableSalidas", {
+        responsive: true,
     })
-  </script>
-  <script src="../js/entradas.js"></script>
-  <script src="../js/elementosGestionar.js"></script>
-  <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
-</body>
+</script>
 
 </html>
