@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-08-2023 a las 18:07:17
+-- Tiempo de generación: 27-08-2023 a las 02:34:52
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `almasenadb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito`
+--
+
+CREATE TABLE `carrito` (
+  `id` int(11) NOT NULL,
+  `fkElemento` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `fkElemento`) VALUES
+(26, 61);
 
 -- --------------------------------------------------------
 
@@ -70,8 +88,8 @@ CREATE TABLE `elementos` (
 --
 
 INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`) VALUES
-(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 15, 'Dos cajas'),
-(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 10, 'Tiene la caja nueva');
+(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 5, 'Dos cajas'),
+(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 8, 'Tiene la caja nueva');
 
 -- --------------------------------------------------------
 
@@ -81,10 +99,19 @@ INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `ma
 
 CREATE TABLE `movimiento` (
   `idMovimiento` int(11) NOT NULL,
-  `tipoMovimiento` varchar(10) NOT NULL,
   `tomador` int(50) NOT NULL,
-  `elemento` int(11) NOT NULL
+  `elemento` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `movimiento`
+--
+
+INSERT INTO `movimiento` (`idMovimiento`, `tomador`, `elemento`, `cantidad`, `fecha`) VALUES
+(13, 12104539, 60, 5, '2023-08-27'),
+(14, 325539287, 61, 2, '2023-08-27');
 
 -- --------------------------------------------------------
 
@@ -173,7 +200,7 @@ INSERT INTO `usuarios` (`id`, `user`, `telefono`, `password`, `email`, `rol`) VA
 (12104535, 'Adolfo ', '3108869831', '', 'adolfo1951@hotmail.com', 'user'),
 (12104539, 'José Fernando Gonzales Pacheco', '3108869831', '', 'jfgp@mail.com', 'user'),
 (12265488, 'Max Power', '3108869831', '473803f0f2ebd77d83ee60daaa61f381', 'jafajardo8845@soy.sena.edu.co', 'admin'),
-(12388888, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com', 'user'),
+(12388888, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com', 'admin'),
 (106134531, 'Francisca', '0', '26588e932c7ccfa1df309280702fe1b5', 'fran@mail.com.co', 'user'),
 (123654789, 'José Fernando Gonzales Pacheco', '3108869831', '202cb962ac59075b964b07152d234b70', 'cachon@cuernos.com', 'user'),
 (325539287, 'Fernando Gonzales Pacheco', '325739528', '', 'pacheco@correo.com', 'user'),
@@ -183,6 +210,13 @@ INSERT INTO `usuarios` (`id`, `user`, `telefono`, `password`, `email`, `rol`) VA
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fkElemento` (`fkElemento`);
 
 --
 -- Indices de la tabla `categorias`
@@ -230,6 +264,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -245,7 +285,7 @@ ALTER TABLE `elementos`
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas`
@@ -262,6 +302,12 @@ ALTER TABLE `tests`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`fkElemento`) REFERENCES `elementos` (`idElemento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `elementos`

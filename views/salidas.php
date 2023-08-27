@@ -75,7 +75,7 @@ include("../controllers/dbConection.php"); ?>
                 <h4 class="text-success">Crear salida de elementos</h4>
                 <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientos">Historial</a>
             </div>
-            <form action="#" method="POST">
+            <form method="POST" id="salidaForm">
                 <div class="input-group mb-3">
                     <span class="input-group-text bg-success-subtle border-primary" id="">Seleccionar Cliente</span>
                     <select class="listaCat form-select pe-5 border-primary" id="listaUsers" name="listUsers" required>
@@ -93,11 +93,26 @@ include("../controllers/dbConection.php"); ?>
                             <th scope="col">Id</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Talla</th>
-                            <th scope="col">Existencias</th>
+                            <th scope="col">Cantidad</th>
                             <th scope="col">Interacción</th>
                         </tr>
                     </thead>
                     <tbody id="bodyCar">
+                    <?php
+                    $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
+                                                    JOIN elementos as e ON c.fkElemento = e.idElemento
+                                                    JOIN tallas as t ON e.fkTalla = t.idTalla");
+                    while ($tableData = $sqlElm->fetch_object()) { ?>
+                        <tr>
+                            <td><?= $tableData->id ?></td>
+                            <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
+                            <td><?= $tableData->tallas ?></td>
+                            <td><input type="number" value="1"></td>
+                            <td>
+                                <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
                 <div class="w-full d-flex justify-content-center align-items-center">
@@ -115,8 +130,7 @@ include("../controllers/dbConection.php"); ?>
                         <th scope="col">Marca</th>
                         <th scope="col">Color</th>
                         <th scope="col">Existencias</th>
-                        <th scope="col">Edición</th>
-                        <th scope="col">Observación</th>
+                        <th scope="col">Interacción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,9 +146,8 @@ include("../controllers/dbConection.php"); ?>
                             <td><?= $tableData->color ?></td>
                             <td><?= $tableData->existencias ?></td>
                             <td>
-                                <a href="" class="btn btn-success">Agregar</a>
+                                <a class="btn btn-success btnAdd" data-id="<?= $tableData->idElemento ?>">Agregar</a>
                             </td>
-                            <td><?= $tableData->observacion ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -149,7 +162,7 @@ include("../controllers/dbConection.php"); ?>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <table>
+            <table class="table table-bordered table-bordered">
                 <thead>
                     <th scope="col">id</th>
                     <th scope="col">Cliente</th>
@@ -157,6 +170,22 @@ include("../controllers/dbConection.php"); ?>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Fecha Salida</th>
                 </thead>
+                <tbody>
+                <?php
+                $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
+                                                        JOIN usuarios as u ON m.tomador = u.id
+                                                        JOIN elementos as e ON m.elemento = e.idElemento 
+                                                        JOIN tallas as t ON e.fkTalla = t.idTalla WHERE 1");
+                while ($tableData = $sqlElm->fetch_object()) { ?>
+                    <tr>
+                        <td><?= $tableData->idMovimiento ?></td>
+                        <td><?= $tableData->user ?> <?= $tableData->telefono ?></td>
+                        <td><?= $tableData->elemento ?> - <?= $tableData->tallas ?> </td>
+                        <td><?= $tableData->cantidad ?></td>
+                        <td><?= $tableData->fecha ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
             </table>
           </div>
         </div>
@@ -171,5 +200,5 @@ include("../controllers/dbConection.php"); ?>
         responsive: true,
     })
 </script>
-
+<script src="../js/salidas.js"></script>
 </html>

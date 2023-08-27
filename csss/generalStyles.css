@@ -76,3 +76,8 @@ body {
 .pointer {
     cursor: pointer;
 }
+
+.inactive {
+    background: gray;
+    color: black;
+}
