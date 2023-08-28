@@ -99,21 +99,21 @@ include("../controllers/dbConection.php"); ?>
                             </tr>
                         </thead>
                         <tbody id="bodyCar">
-                        <?php
-                        $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
+                            <?php
+                            $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
                                                         JOIN elementos as e ON c.fkElemento = e.idElemento
                                                         JOIN tallas as t ON e.fkTalla = t.idTalla");
-                        while ($tableData = $sqlElm->fetch_object()) { ?>
-                            <tr>
-                                <td><?= $tableData->id ?></td>
-                                <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
-                                <td><?= $tableData->tallas ?></td>
-                                <td><input type="number" value="1" class="w-50"></td>
-                                <td>
-                                    <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                            while ($tableData = $sqlElm->fetch_object()) { ?>
+                                <tr>
+                                    <td><?= $tableData->id ?></td>
+                                    <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
+                                    <td><?= $tableData->tallas ?></td>
+                                    <td><input type="number" value="1" class="w-50"></td>
+                                    <td>
+                                        <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -157,41 +157,41 @@ include("../controllers/dbConection.php"); ?>
         </div>
     </div>
     <div class="modal fade modal-lg" id="historialMovimientos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Historial de movimientos</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <table class="table table-bordered table-bordered" id="tableHistorial" style="width: 100%;">
-                <thead>
-                    <th scope="col">id</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Elemento</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Fecha Salida</th>
-                </thead>
-                <tbody>
-                <?php
-                $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Historial de movimientos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-bordered" id="tableHistorial" style="width: 100%;">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Fecha Salida</th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
                                                         JOIN usuarios as u ON m.tomador = u.id
                                                         JOIN elementos as e ON m.elemento = e.idElemento 
                                                         JOIN tallas as t ON e.fkTalla = t.idTalla WHERE 1");
-                while ($tableData = $sqlElm->fetch_object()) { ?>
-                    <tr>
-                        <td><?= $tableData->idMovimiento ?></td>
-                        <td><?= $tableData->user ?> - <?= $tableData->telefono ?></td>
-                        <td><?= $tableData->elemento ?> - <?= $tableData->tallas ?> </td>
-                        <td><?= $tableData->cantidad ?></td>
-                        <td><?= $tableData->fecha ?></td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-          </div>
+                            while ($tableData = $sqlElm->fetch_object()) { ?>
+                                <tr>
+                                    <td><?= $tableData->idMovimiento ?></td>
+                                    <td><?= $tableData->user ?> - <?= $tableData->telefono ?></td>
+                                    <td><?= $tableData->elemento ?> - <?= $tableData->tallas ?> </td>
+                                    <td><?= $tableData->cantidad ?></td>
+                                    <td><?= $tableData->fecha ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 </body>
 <script src="../csss/DataTables/datatables.min.js"></script>
@@ -206,4 +206,5 @@ include("../controllers/dbConection.php"); ?>
     })
 </script>
 <script src="../js/salidas.js"></script>
+
 </html>
