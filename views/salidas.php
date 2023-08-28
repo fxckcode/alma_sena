@@ -70,7 +70,7 @@ include("../controllers/dbConection.php"); ?>
         </div>
     </nav>
     <div class="container-fluid row p-4">
-        <div class="col-6 col-md-4">
+        <div class="col-lg-4 col mb-4">
             <div class="d-flex gap-2 mb-3 align-items-center">
                 <h4 class="text-success">Crear salida de elementos</h4>
                 <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientos">Historial</a>
@@ -87,40 +87,42 @@ include("../controllers/dbConection.php"); ?>
                         <?php } ?>
                     </select>
                 </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Talla</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Interacción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyCar">
-                    <?php
-                    $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
-                                                    JOIN elementos as e ON c.fkElemento = e.idElemento
-                                                    JOIN tallas as t ON e.fkTalla = t.idTalla");
-                    while ($tableData = $sqlElm->fetch_object()) { ?>
-                        <tr>
-                            <td><?= $tableData->id ?></td>
-                            <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
-                            <td><?= $tableData->tallas ?></td>
-                            <td><input type="number" value="1"></td>
-                            <td>
-                                <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Talla</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Interacción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyCar">
+                        <?php
+                        $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
+                                                        JOIN elementos as e ON c.fkElemento = e.idElemento
+                                                        JOIN tallas as t ON e.fkTalla = t.idTalla");
+                        while ($tableData = $sqlElm->fetch_object()) { ?>
+                            <tr>
+                                <td><?= $tableData->id ?></td>
+                                <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
+                                <td><?= $tableData->tallas ?></td>
+                                <td><input type="number" value="1" class="w-50"></td>
+                                <td>
+                                    <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="w-full d-flex justify-content-center align-items-center">
                     <button class="btn btn-primary btn-sm" type="submit">Crear Salida</button>
                 </div>
             </form>
         </div>
-        <div class="col-12 col-md-8">
+        <div class="col-lg-8 col">
             <table id="tableSalidas" class="table table-striped table-bordered table-responsive table-hover nowrap table-sm" style="width: 100%;">
                 <thead class="formColumn">
                     <tr>
@@ -162,7 +164,7 @@ include("../controllers/dbConection.php"); ?>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <table class="table table-bordered table-bordered">
+            <table class="table table-bordered table-bordered" id="tableHistorial" style="width: 100%;">
                 <thead>
                     <th scope="col">id</th>
                     <th scope="col">Cliente</th>
@@ -179,7 +181,7 @@ include("../controllers/dbConection.php"); ?>
                 while ($tableData = $sqlElm->fetch_object()) { ?>
                     <tr>
                         <td><?= $tableData->idMovimiento ?></td>
-                        <td><?= $tableData->user ?> <?= $tableData->telefono ?></td>
+                        <td><?= $tableData->user ?> - <?= $tableData->telefono ?></td>
                         <td><?= $tableData->elemento ?> - <?= $tableData->tallas ?> </td>
                         <td><?= $tableData->cantidad ?></td>
                         <td><?= $tableData->fecha ?></td>
@@ -197,6 +199,9 @@ include("../controllers/dbConection.php"); ?>
 <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
 <script>
     new DataTable("#tableSalidas", {
+        responsive: true,
+    })
+    new DataTable("#tableHistorial", {
         responsive: true,
     })
 </script>
