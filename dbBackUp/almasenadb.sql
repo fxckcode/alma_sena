@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2023 a las 02:34:52
+-- Tiempo de generación: 28-08-2023 a las 18:25:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -31,13 +31,6 @@ CREATE TABLE `carrito` (
   `id` int(11) NOT NULL,
   `fkElemento` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `carrito`
---
-
-INSERT INTO `carrito` (`id`, `fkElemento`) VALUES
-(26, 61);
 
 -- --------------------------------------------------------
 
@@ -88,8 +81,8 @@ CREATE TABLE `elementos` (
 --
 
 INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`) VALUES
-(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 5, 'Dos cajas'),
-(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 8, 'Tiene la caja nueva');
+(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 14, 'Dos cajas'),
+(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 11, 'Tiene la caja nueva');
 
 -- --------------------------------------------------------
 
@@ -99,6 +92,7 @@ INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `ma
 
 CREATE TABLE `movimiento` (
   `idMovimiento` int(11) NOT NULL,
+  `tipo_movimiento` enum('salida','entrada') NOT NULL,
   `tomador` int(50) NOT NULL,
   `elemento` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
@@ -109,9 +103,12 @@ CREATE TABLE `movimiento` (
 -- Volcado de datos para la tabla `movimiento`
 --
 
-INSERT INTO `movimiento` (`idMovimiento`, `tomador`, `elemento`, `cantidad`, `fecha`) VALUES
-(13, 12104539, 60, 5, '2023-08-27'),
-(14, 325539287, 61, 2, '2023-08-27');
+INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `elemento`, `cantidad`, `fecha`) VALUES
+(15, 'salida', 98752, 60, 1, '2023-08-28'),
+(16, 'salida', 123654789, 61, 5, '2023-08-28'),
+(17, 'salida', 98752, 61, 1, '2023-08-28'),
+(18, 'salida', 12104535, 61, 1, '2023-08-28'),
+(19, 'entrada', 12388888, 61, 10, '2023-08-28');
 
 -- --------------------------------------------------------
 
@@ -267,7 +264,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -285,7 +282,7 @@ ALTER TABLE `elementos`
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas`

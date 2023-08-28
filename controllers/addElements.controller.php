@@ -1,7 +1,6 @@
 <?php
 include ("dbConection.php");
 //↓para auto rellenar el formulario
-
 if (isset($_POST['categoria'])) {
 $categoria=$_POST['categoria'];
 $sql="SELECT * FROM elementos as e, categorias as c, tallas AS t 

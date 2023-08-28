@@ -21,14 +21,14 @@ if (isset($_POST['clienteId'])) {
     $elemento = intval($_POST['elementoId']);
     $cantidad = intval($_POST['cantidad']);
     $fecha = date('Y-m-d');
+    $tipo = 1;
 
-    // Usando sentencias preparadas
-    $stmt = $conexion->prepare("INSERT INTO movimiento(tomador, elemento, cantidad, fecha) VALUES (?, ?, ?, ?)");
 
-    // Vincular parámetros
-    $stmt->bind_param("iiis", $clienteId, $elemento, $cantidad, $fecha);
 
-    // Ejecutar la consulta
+    $stmt = $conexion->prepare("INSERT INTO movimiento(tipo_movimiento, tomador, elemento, cantidad, fecha) VALUES (?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("iiiis", $tipo, $clienteId, $elemento, $cantidad, $fecha);
+
     if ($stmt->execute()) {
         echo "Registro insertado exitosamente";
         $updateStmt = $conexion->prepare("UPDATE elementos SET existencias = existencias - ? WHERE idElemento = ?");

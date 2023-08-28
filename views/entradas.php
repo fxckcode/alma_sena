@@ -89,6 +89,7 @@ include("../controllers/addElements.controller.php");
       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#agregarElemento">
         Agregar un elemento
       </button>
+      <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientos">Historial</a>
     </div>
 
     <!-- Modal Para agregar existencias -->

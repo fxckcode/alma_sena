@@ -100,7 +100,7 @@ include("../controllers/dbConection.php"); ?>
                         </thead>
                         <tbody id="bodyCar">
                             <?php
-                            $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento FROM carrito as c 
+                            $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento, e.existencias FROM carrito as c 
                                                         JOIN elementos as e ON c.fkElemento = e.idElemento
                                                         JOIN tallas as t ON e.fkTalla = t.idTalla");
                             while ($tableData = $sqlElm->fetch_object()) { ?>
@@ -108,7 +108,7 @@ include("../controllers/dbConection.php"); ?>
                                     <td><?= $tableData->id ?></td>
                                     <td><?= $tableData->elemento ?> - <?= $tableData->marca ?></td>
                                     <td><?= $tableData->tallas ?></td>
-                                    <td><input type="number" value="1" class="w-50"></td>
+                                    <td><input type="number" value="1" class="w-50" min="1" max="<?= $tableData->existencias ?>"></td>
                                     <td>
                                         <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
                                     </td>
@@ -156,7 +156,7 @@ include("../controllers/dbConection.php"); ?>
             </table>
         </div>
     </div>
-    <div class="modal fade modal-lg" id="historialMovimientos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modal-xl" id="historialMovimientos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="modal-header">
@@ -164,7 +164,7 @@ include("../controllers/dbConection.php"); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered table-bordered" id="tableHistorial" style="width: 100%;">
+                    <table class="table table-bordered table-striped table-hover" id="tableHistorial" style="width: 100%;">
                         <thead>
                             <th scope="col">id</th>
                             <th scope="col">Cliente</th>
@@ -177,13 +177,13 @@ include("../controllers/dbConection.php"); ?>
                             $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
                                                         JOIN usuarios as u ON m.tomador = u.id
                                                         JOIN elementos as e ON m.elemento = e.idElemento 
-                                                        JOIN tallas as t ON e.fkTalla = t.idTalla WHERE 1");
+                                                        JOIN tallas as t ON e.fkTalla = t.idTalla WHERE m.tipo_movimiento='salida'");
                             while ($tableData = $sqlElm->fetch_object()) { ?>
                                 <tr>
                                     <td><?= $tableData->idMovimiento ?></td>
-                                    <td><?= $tableData->user ?> - <?= $tableData->telefono ?></td>
-                                    <td><?= $tableData->elemento ?> - <?= $tableData->tallas ?> </td>
-                                    <td><?= $tableData->cantidad ?></td>
+                                    <td><strong>Nombre: </strong> <?= $tableData->user ?> <br> <strong>Telefono: </strong> <?= $tableData->telefono ?></td>
+                                    <td> <strong><?= $tableData->elemento ?></strong> <br> <strong>Talla: </strong> <?= $tableData->tallas ?> </td>
+                                    <td> - <?= $tableData->cantidad ?></td>
                                     <td><?= $tableData->fecha ?></td>
                                 </tr>
                             <?php } ?>
@@ -202,7 +202,7 @@ include("../controllers/dbConection.php"); ?>
         responsive: true,
     })
     new DataTable("#tableHistorial", {
-        responsive: true,
+        responsive: true
     })
 </script>
 <script src="../js/salidas.js"></script>
