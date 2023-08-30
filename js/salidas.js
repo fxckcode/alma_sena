@@ -1,6 +1,21 @@
+$(document).ready(function () {
+    $("#ficha").on("change", function () {
+        let ficha = $(this).val();
+        localStorage.setItem("ficha", ficha);
+    });
+
+    $("#ficha").val(localStorage.getItem("ficha"));
+
+    $("#listaUsers").on("change", function () {
+        let ficha = $(this).val();
+        localStorage.setItem("listaUsers", ficha);
+    });
+
+    $("#listaUsers").val(localStorage.getItem("listaUsers"));
+})
 
 // Al cargar la página, verificamos cada botón para ver si fue clickeado previamente.
-$("a.btnAdd").each(function() {
+$("a.btnAdd").each(function () {
     var id = $(this).attr("data-id");
     if (localStorage.getItem('clicked-' + id)) {
         $(this).removeClass('btn-success');
@@ -12,7 +27,7 @@ $("a.btnAdd").each(function() {
     }
 });
 
-$("a.btnAdd").on("click", function(e) {
+$("a.btnAdd").on("click", function (e) {
     e.preventDefault();
     var idElemento = $(this).attr("data-id");
 
@@ -24,7 +39,7 @@ $("a.btnAdd").on("click", function(e) {
     $.ajax({
         url: "../controllers/carrito.controller.php",
         type: "POST",
-        data: {idElemento: idElemento},
+        data: { idElemento: idElemento },
         success: (response) => {
             $(this).removeClass('btn-success');
             localStorage.setItem('clicked-' + idElemento, true);
@@ -78,9 +93,10 @@ $("a.btnDel").on("click", function (e) {
 
 })
 
-$("#salidaForm").on("submit", function(e) {
+$("#salidaForm").on("submit", function (e) {
     e.preventDefault();
     var clienteSeleccionado = $("#listaUsers").val();
+    var ficha = $('#ficha').val();
     if (!clienteSeleccionado) {
         alert("Por favor, selecciona un cliente.");
         return;
@@ -100,7 +116,7 @@ $("#salidaForm").on("submit", function(e) {
         cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
-            $("#bodyCar tr").each(function() {
+            $("#bodyCar tr").each(function () {
                 var idElemento = $(this).find(".btnDel").attr("data-id");
                 var cantidad = $(this).find("input[type='number']").val();
 
@@ -112,20 +128,23 @@ $("#salidaForm").on("submit", function(e) {
                     data: {
                         clienteId: clienteSeleccionado,
                         elementoId: idElemento,
-                        cantidad: cantidad
+                        cantidad: cantidad,
+                        ficha: ficha
                     },
-                    success: function(response) {
+                    success: function (response) {
                         console.log("Elemento " + idElemento + " procesado exitosamente.");
                         console.log(response)
                         processedRows++;
 
                         if (processedRows === totalRows) {
                             Swal.fire('', 'Salida generada con éxito', 'success').then(() => {
+                                localStorage.setItem("listaUsers", "")
+                                localStorage.setItem("ficha", "")
                                 location.reload();
                             });
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.error("Error procesando el elemento " + idElemento);
                     }
                 });
