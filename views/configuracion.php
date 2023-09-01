@@ -81,21 +81,22 @@ include("../controllers/dbConection.php"); ?>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="p-4 w-100 h-auto flex justify-content-center align-items-center">
-          <h1>Perfil</h1>
+          <h3>Perfil</h3>
           <form id="editProfile">
             <?php $data = $conexion->query("SELECT * FROM usuarios WHERE id=" . $_SESSION['id']);
             while ($tableData = $data->fetch_object()) { ?>
               <div class="d-flex flex-column gap-1 mb-3 w-50">
-                <label for="" class="form-label">Nombre de Usuario</label>
-                <input type="text" value="<?= $tableData->user ?>" class="form-control" placeholder="Nombre de Usuario">
+                <input type="hidden" value="<?= $tableData->id ?>" id="idProfile">
+                <label for="nombre" class="form-label">Nombre de Usuario</label>
+                <input type="text" value="<?= $tableData->user ?>" class="form-control" name="nombre" placeholder="Nombre de Usuario" id="nombre">
               </div>
               <div class="d-flex flex-column gap-1 mb-3 w-50">
-                <label for="" class="form-label">Número de Teléfono</label>
-                <input type="number" value="<?= $tableData->telefono ?>" class="form-control" placeholder="Número de Teléfono">
+                <label for="telefono" class="form-label">Número de Teléfono</label>
+                <input type="number" value="<?= $tableData->telefono ?>" class="form-control" name="telefono" placeholder="Número de Teléfono" id="telefono">
               </div>
               <div class="d-flex flex-column gap-1 mb-3 w-50">
-                <label for="" class="form-label">Correo</label>
-                <input type="email" value="<?= $tableData->email ?>" class="form-control" placeholder="Correo Electronico">
+                <label for="email" class="form-label">Correo</label>
+                <input type="email" value="<?= $tableData->email ?>" class="form-control" name="email" placeholder="Correo Electronico" id="email">
               </div>
             <?php } ?>
             <button class="btn btn-primary btn-sm" type="submit">Actualizar perfil</button>
@@ -103,19 +104,86 @@ include("../controllers/dbConection.php"); ?>
         </div>
       </div>
       <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <h1>Perfil</h1>
-        <p>Aquí puedes ver tu perfil de usuario.</p>
+        <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
+          <h3>Gestión de usuarios</h3>
+          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionUsers">
+            <thead>
+              <th>id</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Email</th>
+            </thead>
+            <tbody>
+              <?php $data = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
+              while ($tableData = $data->fetch_object()) { ?>
+                <tr>
+                  <td><?= $tableData->id ?></td>
+                  <td><?= $tableData->user ?></td>
+                  <td><?= $tableData->telefono ?></td>
+                  <td><?= $tableData->email ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="tab-pane fade" id="nav-categories" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <h1>Contacto</h1>
-        <p>Contáctanos para cualquier duda o sugerencia.</p>
+        <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
+          <h3>Gestionar categorias</h3>
+          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionCategorias">
+            <thead>
+              <th>id</th>
+              <th>Nombre</th>
+            </thead>
+            <tbody>
+              <?php $data = $conexion->query("SELECT * FROM categorias WHERE 1");
+              while ($tableData = $data->fetch_object()) { ?>
+                <tr>
+                  <td><?= $tableData->idCategoria ?></td>
+                  <td><?= $tableData->nombreCat ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="tab-pane fade" id="nav-tallas" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <h1>Tallas</h1>
+        <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
+          <h3>Tallas</h3>
+          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionTallas">
+            <thead>
+              <th>id</th>
+              <th>Nombre</th>
+            </thead>
+            <tbody>
+              <?php $data = $conexion->query("SELECT * FROM tallas WHERE 1");
+              while ($tableData = $data->fetch_object()) { ?>
+                <tr>
+                  <td><?= $tableData->idTalla ?></td>
+                  <td><?= $tableData->tallas ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </body>
 <script src="../csss/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<script src="../js/configuracion.js"></script>
+<script src="../csss/DataTables/datatables.min.js"></script>
+<script src="../csss/bootstrap/js/bootstrap.min.js"></script>
+<script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
+<script>
+    new DataTable("#gestionUsers", {
+        responsive: true,
+    })
+    new DataTable("#gestionCategorias", {
+        responsive: true
+    })
+    new DataTable("#gestionTallas", {
+      responsive: true
+    })
+</script>
 </html>
