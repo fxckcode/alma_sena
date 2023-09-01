@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-08-2023 a las 18:25:49
+-- Tiempo de generación: 01-09-2023 a las 18:32:54
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -81,8 +81,8 @@ CREATE TABLE `elementos` (
 --
 
 INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`) VALUES
-(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 14, 'Dos cajas'),
-(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 11, 'Tiene la caja nueva');
+(60, 2, 21, 'gafas prueba', 'caterpilar', 'negro', 28, 'Dos cajas'),
+(61, 7, 15, 'Botas de seguridad', 'Brama', 'Marrones', 13, 'Tiene la caja nueva');
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,9 @@ CREATE TABLE `movimiento` (
   `tipo_movimiento` enum('salida','entrada') NOT NULL,
   `tomador` int(50) NOT NULL,
   `elemento` int(11) NOT NULL,
+  `ficha` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
+  `observacion` text NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -103,12 +105,15 @@ CREATE TABLE `movimiento` (
 -- Volcado de datos para la tabla `movimiento`
 --
 
-INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `elemento`, `cantidad`, `fecha`) VALUES
-(15, 'salida', 98752, 60, 1, '2023-08-28'),
-(16, 'salida', 123654789, 61, 5, '2023-08-28'),
-(17, 'salida', 98752, 61, 1, '2023-08-28'),
-(18, 'salida', 12104535, 61, 1, '2023-08-28'),
-(19, 'entrada', 12388888, 61, 10, '2023-08-28');
+INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `elemento`, `ficha`, `cantidad`, `observacion`, `fecha`) VALUES
+(30, 'salida', 12104533, 60, 3123131, 1, '', '2023-08-30'),
+(31, 'salida', 12104533, 61, 3123131, 1, '', '2023-08-30'),
+(32, 'entrada', 12388888, 60, 0, 12, '', '2023-08-30'),
+(33, 'salida', 98752, 60, 312313, 7, '', '2023-08-30'),
+(34, 'salida', 12104533, 60, 231332321, 1, 'tiene todo completado', '2023-08-31'),
+(35, 'salida', 12104533, 61, 231332321, 1, 'tiene todo completado', '2023-08-31'),
+(36, 'salida', 12104535, 60, 2147483647, 1, 'zapatos sdaaaaaaaaa', '2023-09-01'),
+(37, 'entrada', 12388888, 61, 0, 10, '', '2023-09-01');
 
 -- --------------------------------------------------------
 
@@ -150,30 +155,6 @@ INSERT INTO `tallas` (`idTalla`, `tallas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tests`
---
-
-CREATE TABLE `tests` (
-  `idTest` int(11) NOT NULL,
-  `campoTest` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tests`
---
-
-INSERT INTO `tests` (`idTest`, `campoTest`) VALUES
-(4, 'valor'),
-(5, 'valor'),
-(6, 'valor'),
-(7, 'valor'),
-(8, 'valor'),
-(9, 'valre'),
-(10, 'ss');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -197,7 +178,7 @@ INSERT INTO `usuarios` (`id`, `user`, `telefono`, `password`, `email`, `rol`) VA
 (12104535, 'Adolfo ', '3108869831', '', 'adolfo1951@hotmail.com', 'user'),
 (12104539, 'José Fernando Gonzales Pacheco', '3108869831', '', 'jfgp@mail.com', 'user'),
 (12265488, 'Max Power', '3108869831', '473803f0f2ebd77d83ee60daaa61f381', 'jafajardo8845@soy.sena.edu.co', 'admin'),
-(12388888, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com', 'admin'),
+(12388888, 'admin 34', '02938109', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com', 'admin'),
 (106134531, 'Francisca', '0', '26588e932c7ccfa1df309280702fe1b5', 'fran@mail.com.co', 'user'),
 (123654789, 'José Fernando Gonzales Pacheco', '3108869831', '202cb962ac59075b964b07152d234b70', 'cachon@cuernos.com', 'user'),
 (325539287, 'Fernando Gonzales Pacheco', '325739528', '', 'pacheco@correo.com', 'user'),
@@ -245,12 +226,6 @@ ALTER TABLE `tallas`
   ADD PRIMARY KEY (`idTalla`);
 
 --
--- Indices de la tabla `tests`
---
-ALTER TABLE `tests`
-  ADD PRIMARY KEY (`idTest`);
-
---
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -264,7 +239,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -282,19 +257,13 @@ ALTER TABLE `elementos`
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas`
 --
 ALTER TABLE `tallas`
   MODIFY `idTalla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT de la tabla `tests`
---
-ALTER TABLE `tests`
-  MODIFY `idTest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
