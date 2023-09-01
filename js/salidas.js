@@ -97,6 +97,7 @@ $("#salidaForm").on("submit", function (e) {
     e.preventDefault();
     var clienteSeleccionado = $("#listaUsers").val();
     var ficha = $('#ficha').val();
+    var observacion = $("#observacion").val();
     if (!clienteSeleccionado) {
         alert("Por favor, selecciona un cliente.");
         return;
@@ -129,7 +130,8 @@ $("#salidaForm").on("submit", function (e) {
                         clienteId: clienteSeleccionado,
                         elementoId: idElemento,
                         cantidad: cantidad,
-                        ficha: ficha
+                        ficha: ficha,
+                        observacion: observacion
                     },
                     success: function (response) {
                         console.log("Elemento " + idElemento + " procesado exitosamente.");
@@ -148,6 +150,35 @@ $("#salidaForm").on("submit", function (e) {
                         console.error("Error procesando el elemento " + idElemento);
                     }
                 });
+            });
+        }
+    })
+})
+
+$("#historialByUsuario").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var tbody = $("#bodyHistorialByUsers")
+
+    $.ajax({
+        url: "../controllers/getMovimiento.controller.php",
+        type: 'GET',
+        data: {
+            id: id
+        },
+        success: (response) => {
+            var data = JSON.parse(response)
+            data.forEach(element => {
+                tbody.html(`
+                    <tr>
+                        <td>${element.idMovimiento}</td>
+                        <td>${element.elemento}</td>
+                        <td>${element.marca}</td>
+                        <td>${element.cantidad}</td>
+                        <td>${element.observacion}</td>
+                        <td>${element.fecha}</td>
+                    </tr>
+                `)
             });
         }
     })

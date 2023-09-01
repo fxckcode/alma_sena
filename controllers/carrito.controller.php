@@ -21,14 +21,15 @@ if (isset($_POST['clienteId'])) {
     $elemento = intval($_POST['elementoId']);
     $cantidad = intval($_POST['cantidad']);
     $ficha = intval($_POST['ficha']);
+    $observacion = $_POST['observacion'];
     $fecha = date('Y-m-d');
     $tipo = 1;
 
 
 
-    $stmt = $conexion->prepare("INSERT INTO movimiento(tipo_movimiento, tomador, elemento, ficha, cantidad, fecha) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conexion->prepare("INSERT INTO movimiento(tipo_movimiento, tomador, elemento, ficha, cantidad, observacion, fecha) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("iiiiis", $tipo, $clienteId, $elemento, $ficha, $cantidad, $fecha);
+    $stmt->bind_param("iiiiiss", $tipo, $clienteId, $elemento, $ficha, $cantidad, $observacion, $fecha);
 
     if ($stmt->execute()) {
         echo "Registro insertado exitosamente";

@@ -48,7 +48,7 @@ include("../controllers/addElements.controller.php");
             <a class="nav-link mx-2" href="salidas.php">Salidas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="cambios.php">Cambios</a>
+            <a class="nav-link mx-2" href="configuracion.php">Configuración</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">

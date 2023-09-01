@@ -43,7 +43,7 @@ include("../controllers/dbConection.php"); ?>
                         <a class="nav-link mx-2 active" href="salidas.php">Salidas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="cambios.php">Cambios</a>
+                        <a class="nav-link mx-2" href="configuracion.php">Configuración</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
@@ -88,8 +88,12 @@ include("../controllers/dbConection.php"); ?>
                     </select>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-success-subtle border-primary" id="">Ficha</span>
+                    <span class="input-group-text bg-success-subtle border-primary">Ficha</span>
                     <input type="number" placeholder="ID Ficha" id="ficha" name="ficha" class="form-control border-primary ficha">
+                </div>
+                <div class="input-group mb-4">
+                    <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
+                    <textarea class="form-control border-primary" name="observación" aria-label="With textarea" id="observacion" placeholder="Nota"></textarea>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-sm">
@@ -172,27 +176,47 @@ include("../controllers/dbConection.php"); ?>
                         <thead>
                             <th scope="col">id</th>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Ficha</th>
-                            <th scope="col">Elemento</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Fecha Salida</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Interacción</th>
                         </thead>
                         <tbody>
                             <?php
-                            $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.ficha, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
-                                                        JOIN usuarios as u ON m.tomador = u.id
-                                                        JOIN elementos as e ON m.elemento = e.idElemento 
-                                                        JOIN tallas as t ON e.fkTalla = t.idTalla WHERE m.tipo_movimiento='salida'");
+                            $sqlElm = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
                             while ($tableData = $sqlElm->fetch_object()) { ?>
                                 <tr>
-                                    <td><?= $tableData->idMovimiento ?></td>
-                                    <td><strong>Nombre: </strong> <?= $tableData->user ?> <br> <strong>Telefono: </strong> <?= $tableData->telefono ?></td>
-                                    <td><?= $tableData->ficha ?></td>
-                                    <td> <strong><?= $tableData->elemento ?></strong> <br> <strong>Talla: </strong> <?= $tableData->tallas ?> </td>
-                                    <td><?= $tableData->cantidad ?></td>
-                                    <td><?= $tableData->fecha ?></td>
+                                    <td><?= $tableData->id ?></td>
+                                    <td><?= $tableData->user ?></td>
+                                    <td><?= $tableData->telefono ?></td>
+                                    <td><?= $tableData->email ?></td>
+                                    <td><button class="btn btn-success" data-bs-toggle="modal" title="Historial por cada usuario" data-bs-target="#historialByUsuario" data-id="<?= $tableData->id ?>">Historial</button></td>
                                 </tr>
                             <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-xl" id="historialByUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Historial de cada Usuario</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Observación</th>
+                            <th scope="col">Fecha</th>
+                        </thead>
+                        <tbody id="bodyHistorialByUsers">
+                            
                         </tbody>
                     </table>
                 </div>
