@@ -112,6 +112,7 @@ include("../controllers/dbConection.php"); ?>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
+              <th>Interacción</th>
             </thead>
             <tbody>
               <?php $data = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
@@ -121,6 +122,7 @@ include("../controllers/dbConection.php"); ?>
                   <td><?= $tableData->user ?></td>
                   <td><?= $tableData->telefono ?></td>
                   <td><?= $tableData->email ?></td>
+                  <td><button class="btn btn-success">Interacción</button></td>
                 </tr>
               <?php } ?>
             </tbody>
@@ -134,6 +136,7 @@ include("../controllers/dbConection.php"); ?>
             <thead>
               <th>id</th>
               <th>Nombre</th>
+              <th>Interacción</th>
             </thead>
             <tbody>
               <?php $data = $conexion->query("SELECT * FROM categorias WHERE 1");
@@ -141,6 +144,7 @@ include("../controllers/dbConection.php"); ?>
                 <tr>
                   <td><?= $tableData->idCategoria ?></td>
                   <td><?= $tableData->nombreCat ?></td>
+                  <td><button class="btn btn-success">Interacción</button></td>
                 </tr>
               <?php } ?>
             </tbody>
@@ -154,6 +158,7 @@ include("../controllers/dbConection.php"); ?>
             <thead>
               <th>id</th>
               <th>Nombre</th>
+              <th>Interacción</th>
             </thead>
             <tbody>
               <?php $data = $conexion->query("SELECT * FROM tallas WHERE 1");
@@ -161,6 +166,7 @@ include("../controllers/dbConection.php"); ?>
                 <tr>
                   <td><?= $tableData->idTalla ?></td>
                   <td><?= $tableData->tallas ?></td>
+                  <td><button class="btn btn-success">Interacción</button></td>
                 </tr>
               <?php } ?>
             </tbody>
@@ -176,14 +182,15 @@ include("../controllers/dbConection.php"); ?>
 <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
 <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
 <script>
-    new DataTable("#gestionUsers", {
-        responsive: true,
-    })
-    new DataTable("#gestionCategorias", {
-        responsive: true
-    })
-    new DataTable("#gestionTallas", {
-      responsive: true
-    })
+  new DataTable("#gestionUsers", {
+    responsive: true,
+  })
+  new DataTable("#gestionCategorias", {
+    responsive: true
+  })
+  new DataTable("#gestionTallas", {
+    responsive: true
+  })
 </script>
+
 </html>
