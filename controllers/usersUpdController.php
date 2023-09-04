@@ -11,7 +11,9 @@ if (isset($_POST['inputId'])) {
     $stmt = $conexion->prepare("UPDATE usuarios SET user=?, telefono=?, email=? WHERE id=?");
     $stmt->bind_param("sssi", $Name, $Tel, $Mail, $Id);
     if ($stmt->execute()) {
-      $_SESSION['nombre'] = $Name;
+      if (intval($_SESSION['id']) == $Id) {
+          $_SESSION['nombre'] = $Name;
+      }
     }
     echo "Funciono";
 }
