@@ -105,8 +105,11 @@ include("../controllers/dbConection.php"); ?>
       </div>
       <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
-          <h3>Gestión de usuarios</h3>
-          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionUsers">
+          <div class="d-flex flex-row gap-4">
+            <h3>Gestión de usuarios</h3>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">Crear nuevo usuario</button>
+          </div>
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="gestionUsers">
             <thead>
               <th>id</th>
               <th>Nombre</th>
@@ -122,7 +125,21 @@ include("../controllers/dbConection.php"); ?>
                   <td><?= $tableData->user ?></td>
                   <td><?= $tableData->telefono ?></td>
                   <td><?= $tableData->email ?></td>
-                  <td><button class="btn btn-success">Interacción</button></td>
+                  <td>
+                    <a class="btn btn-small btn-warning" data-id="<?= $tableData->id ?>" data-bs-toggle="modal" data-bs-target="#editElements">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                      </svg>
+                    </a>
+                    <!-- Botón eliminar -->
+                    <a onclick="eliminar('<?php echo $tableData->id ?>')" class="btn btn-small btn-danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                      </svg>
+                    </a>
+                  </td>
                 </tr>
               <?php } ?>
             </tbody>
@@ -132,7 +149,7 @@ include("../controllers/dbConection.php"); ?>
       <div class="tab-pane fade" id="nav-categories" role="tabpanel" aria-labelledby="nav-contact-tab">
         <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
           <h3>Gestionar categorias</h3>
-          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionCategorias">
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="gestionCategorias">
             <thead>
               <th>id</th>
               <th>Nombre</th>
@@ -154,7 +171,7 @@ include("../controllers/dbConection.php"); ?>
       <div class="tab-pane fade" id="nav-tallas" role="tabpanel" aria-labelledby="nav-contact-tab">
         <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
           <h3>Tallas</h3>
-          <table class="table table-bordered table-striped table-hover table-small" style="width: 100%;" id="gestionTallas">
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="gestionTallas">
             <thead>
               <th>id</th>
               <th>Nombre</th>
@@ -175,6 +192,44 @@ include("../controllers/dbConection.php"); ?>
       </div>
     </div>
   </div>
+  <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear nuevo usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="w-100" id="createUsersForm">
+            <div class="d-flex flex-column gap-1 mb-3">
+              <input type="hidden" id="idProfile">
+              <label for="identUser" class="form-label">Número de documento (*)</label>
+              <input type="text" class="form-control" name="identUser" placeholder="C.C 1234567890" id="identUser" required>
+            </div>
+            <div class="d-flex flex-column gap-1 mb-3">
+              <label for="nombre" class="form-label">Nombre de Usuario (*)</label>
+              <input type="text" class="form-control" name="nombre" placeholder="Nombre de Usuario" id="nombreUser" required>
+            </div>
+            <div class="d-flex flex-column gap-1 mb-3">
+              <label for="email" class="form-label">Correo (*)</label>
+              <input type="email" class="form-control" name="email" placeholder="Correo Electronico" id="emailUser" required>
+            </div>
+            <div class="d-flex flex-column gap-1 mb-3">
+              <label for="telefono" class="form-label">Número de Teléfono</label>
+              <input type="text" class="form-control" name="telefono" placeholder="Número de Teléfono" id="telefonoUser">
+            </div>
+            <div class="d-flex flex-column gap-1 mb-3">
+              <label for="password" class="form-label">Contraseña (*)</label>
+              <input type="text" class="form-control" name="password" placeholder="Contraseña" id="passUser" required>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <button type="submit" class="btn btn-success">Crear usuario</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="../csss/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../js/configuracion.js"></script>
@@ -191,6 +246,43 @@ include("../controllers/dbConection.php"); ?>
   new DataTable("#gestionTallas", {
     responsive: true
   })
+
+  function eliminar(id) {
+    var id = parseInt(id)
+    console.log(id)
+    Swal.fire({
+      title: '¿Estás seguro que quieres eliminar este elemento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: 'POST',
+          url: '../controllers/user.Delete.controller.php',
+          data: {
+            usrId: id
+          },
+          success: () => {
+            Swal.fire(
+              'Elemento Eliminado',
+              'El elemento seleccionado ha sido eliminado exitosamente',
+              'success'
+            ).then(() => {
+              location.reload();
+            })
+          },
+          catch: (error) => {
+            console.error(error)
+          }
+        })
+      }
+    })
+
+  }
 </script>
 
 </html>
