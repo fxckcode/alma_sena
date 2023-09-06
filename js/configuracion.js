@@ -216,3 +216,43 @@ $("#createCategory").submit(function (event) {
     })
 
 })
+
+
+$("#createTallasForm").submit(function (event) {
+    event.preventDefault();
+
+    var nombre = $("#tallasModal").val()
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Quieres crear una nueva talla?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: "../controllers/addTallas.controller.php",
+                data: {
+                    nombre: nombre
+                },
+                success: (response) => {
+                    console.log(response)
+                    Swal.fire(
+                        'Elemento Creado',
+                        'La talla ha sido creada con exito',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    })
+                }, catch: (error) => {
+                    console.error(error)
+                }
+            })
+        }
+    })
+})
