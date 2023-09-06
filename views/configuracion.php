@@ -13,6 +13,7 @@ include("../controllers/dbConection.php"); ?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../assets/senaGreen.png" type="image/x-icon">
   <!-- BootStrap -->
   <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../csss/DataTables/Responsive-2.5.0/css/responsive.dataTables.min.css">
@@ -148,7 +149,10 @@ include("../controllers/dbConection.php"); ?>
       </div>
       <div class="tab-pane fade" id="nav-categories" role="tabpanel" aria-labelledby="nav-contact-tab">
         <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
-          <h3>Gestionar categorias</h3>
+          <div class="d-flex flex-row gap-4">
+            <h3>Gestionar categorias</h3>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategories">Crear categoria nueva</button>
+          </div>
           <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="gestionCategorias">
             <thead>
               <th>id</th>
@@ -161,7 +165,12 @@ include("../controllers/dbConection.php"); ?>
                 <tr>
                   <td><?= $tableData->idCategoria ?></td>
                   <td><?= $tableData->nombreCat ?></td>
-                  <td><button class="btn btn-success">Interacción</button></td>
+                  <td><a onclick="eliminarCategorias('<?php echo $tableData->idCategoria ?>')" class="btn btn-small btn-danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                      </svg>
+                    </a></td>
                 </tr>
               <?php } ?>
             </tbody>
@@ -238,9 +247,31 @@ include("../controllers/dbConection.php"); ?>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" class="editModalUser">
-            <form id="editFormUser">
+          <form id="editFormUser">
 
-            </form>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="createCategories" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="createCategory">
+            <div class="d-flex flex-column gap-1 mb-3">
+              <input type="hidden" id="idProfile">
+              <label for="category" class="form-label">Nombre</label>
+              <input type="text" class="form-control" name="category" placeholder="Nombre de la categoria" id="category" required>
+            </div>
+            <div class="w-100 d-flex justify-content-center align-items-center">
+              <button type="submit" class="btn btn-success btn-small">Crear</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -280,6 +311,43 @@ include("../controllers/dbConection.php"); ?>
           url: '../controllers/user.Delete.controller.php',
           data: {
             usrId: id
+          },
+          success: () => {
+            Swal.fire(
+              'Elemento Eliminado',
+              'El elemento seleccionado ha sido eliminado exitosamente',
+              'success'
+            ).then(() => {
+              location.reload();
+            })
+          },
+          catch: (error) => {
+            console.error(error)
+          }
+        })
+      }
+    })
+
+  }
+
+  function eliminarCategorias(id) {
+    var id = parseInt(id)
+    console.log(id)
+    Swal.fire({
+      title: '¿Estás seguro que quieres eliminar este elemento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: 'POST',
+          url: '../controllers/addCategorias.controller.php',
+          data: {
+            id: id
           },
           success: () => {
             Swal.fire(
