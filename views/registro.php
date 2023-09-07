@@ -11,7 +11,7 @@
     <title>Registro</title>
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-image" style="background-image: url('../assets/userBackGround2.jpg'); height: 100vh">
+<body class="d-flex justify-content-center align-items-center vh-100 bg-image" style="background-image: url('../assets/bg.jpg'); height: 100vh">
     <div class="formCont p-4 rounded text-secondary shadow" style="width: 32rem">
         <!-- inicio formulario -->
         <form action="" method="post">

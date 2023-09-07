@@ -11,14 +11,11 @@
     <title>almaSena</title>
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-image" style="background-image: url('./assets/inventoryView.webp'); height: 100vh">
+<body class="d-flex justify-content-center align-items-center vh-100 bg-image" style="background-image: url('./assets/bg.jpg'); height: 100vh">
 
     <div>
-        <div class="size-5 text-center title fs-2 fw-bold "><strong>Inicio de Sesión</strong></div>
-        <div class="logoSena d-flex justify-content-center">
-            <img src="./assets/loginIconGreen.svg" alt="login-icon" style="height: 5rem" />
-        </div>
         <div class="formCont p-5 rounded-2 text-secondary shadow" style="width: 25rem">
+            <div class="size-5 text-center title fs-2 fw-bold"><strong>Inicio de Sesión</strong></div>
             <?php
             include("controllers/dbConection.php");
             include("controllers/login.php");
@@ -36,7 +33,7 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <input name="dataSend" class="bttn btn w-100 text-white mt-1 fw-semibold" type="submit" value="Iniciar Sesión">
                 </div>
 
