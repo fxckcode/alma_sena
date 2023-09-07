@@ -34,17 +34,11 @@
                 </div>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-4">
                 <label for="exampleInputPassword1" class="form-label px-5">Contraseña</label>
                 <div class="input-group-text d-flex gap-2">
                     <img src="./assets/password-icon.svg" alt="password-icon" style="height: 1rem" />
                     <input class="form-control bg-light" name="password" type="password" placeholder="Contraseña" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-end mt-2">
-                <div class="pt-1">
-                    <a href="#" class="rLetter text-decoration-none fw-semibold fst-italic"
-                        style="font-size: 0.9rem">Perdió su contraseña?</a>
                 </div>
             </div>
             
