@@ -71,9 +71,10 @@ include("../controllers/dbConection.php"); ?>
     </nav>
     <div class="container-fluid row p-4">
         <div class="col-lg-4 col mb-4">
-            <div class="d-flex gap-2 mb-3 align-items-center">
-                <h4 class="text-success">Crear salida de elementos</h4>
+            <div class="d-flex gap-2 mb-3 align-items-center justify-content-around">
+                <h5 class="text-success">Crear salida</h5>
                 <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientos">Historial</a>
+                <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-bs-target="#historialMovimientosByDay">Historial del día</a>
             </div>
             <form method="POST" id="salidaForm">
                 <div class="input-group mb-3">
@@ -216,6 +217,32 @@ include("../controllers/dbConection.php"); ?>
                             <th scope="col">Fecha</th>
                         </thead>
                         <tbody id="bodyHistorialByUsers">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-xl" id="historialMovimientosByDay" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Historial del dia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Ficha</th>
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Observación</th>
+                            <th scope="col">Fecha</th>
+                        </thead>
+                        <tbody id="bodyHistorialByDia">
                             
                         </tbody>
                     </table>

@@ -179,6 +179,41 @@ $("#historialByUsuario").on("show.bs.modal", (event) => {
                     <td>${element.fecha}</td>
                 </tr>
             `).join('');
+            tbody.html(rowsHtml);
+        }
+    })
+})
+
+$("#historialMovimientosByDay").on("show.bs.modal", (event) => {
+    const hoy = new Date();
+    const anioActual = hoy.getFullYear();
+    const mesActual = (hoy.getMonth() + 1).toString().padStart(2, '0');
+    const diaActual = hoy.getDate().toString().padStart(2, '0');
+
+    const fechaActual = anioActual + '-' + mesActual + '-' + diaActual;
+    var tbody = $("#bodyHistorialByDia")
+
+
+    $.ajax({
+        url: "../controllers/getMovimiento.controller.php",
+        type: 'GET',
+        data: {
+            fecha: fechaActual
+        },
+        success: (response) => {
+            var data = JSON.parse(response)
+            console.log(data);
+            var rowsHtml = data.map(element => `
+                <tr>
+                    <td>${element.idMovimiento}</td>
+                    <td>${element.user}</td>
+                    <td>${element.ficha}</td>
+                    <td>${element.elemento} - ${element.tallas}</td>
+                    <td>${element.cantidad}</td>
+                    <td>${element.observacion}</td>
+                    <td>${element.fecha}</td>
+                </tr>
+            `).join('');
             tbody.html(rowsHtml);   
         }
     })
