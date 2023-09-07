@@ -201,7 +201,7 @@ include("../controllers/addElements.controller.php");
     </div>
 
     <!-- Listado de elementos -->
-    <table id="tableInventario" class="table table-striped table-bordered table-responsive table-hover nowrap" style="width: 100%;">
+    <table id="tableInventario" class="table table-striped table-bordered table-responsive table-hover nowrap rounded-3" style="width: 100%;">
       <thead class="formColumn">
         <tr>
           <th scope="col">Categoría</th>
