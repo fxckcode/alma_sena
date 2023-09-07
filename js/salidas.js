@@ -159,6 +159,7 @@ $("#historialByUsuario").on("show.bs.modal", (event) => {
     var button = $(event.relatedTarget);
     var id = button.data('id');
     var tbody = $("#bodyHistorialByUsers")
+    console.log(id)
 
     $.ajax({
         url: "../controllers/getMovimiento.controller.php",
@@ -168,18 +169,17 @@ $("#historialByUsuario").on("show.bs.modal", (event) => {
         },
         success: (response) => {
             var data = JSON.parse(response)
-            data.forEach(element => {
-                tbody.html(`
-                    <tr>
-                        <td>${element.idMovimiento}</td>
-                        <td>${element.elemento}</td>
-                        <td>${element.marca}</td>
-                        <td>${element.cantidad}</td>
-                        <td>${element.observacion}</td>
-                        <td>${element.fecha}</td>
-                    </tr>
-                `)
-            });
+            var rowsHtml = data.map(element => `
+                <tr>
+                    <td>${element.idMovimiento}</td>
+                    <td>${element.elemento}</td>
+                    <td>${element.marca}</td>
+                    <td>${element.cantidad}</td>
+                    <td>${element.observacion}</td>
+                    <td>${element.fecha}</td>
+                </tr>
+            `).join('');
+            tbody.html(rowsHtml);   
         }
     })
 })
