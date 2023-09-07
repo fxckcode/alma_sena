@@ -35,7 +35,7 @@
                 <input type="email" class="form-control" id="mailInput" name="email" placeholder="Correo SENA" required>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2 row">
                 <div class="col">
                     <label for="pass" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" required>
