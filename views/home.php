@@ -43,7 +43,10 @@ include("../controllers/dbConection.php");
         </div>
     </nav>
     <div class="container flex flex-column gap-6 mt-3">
-        <h3>Inventario Actual</h3>
+        <div class="d-flex gap-3 align-items-center">
+            <h3>Inventario Actual</h3>
+            <a class="fw-bold pointer text-info pe-auto" data-bs-toggle="modal" data-id="<?= $_SESSION['id'] ?>" data-bs-target="#historialMovimientosUser" style="cursor: pointer;">Historial de entregas</a>
+        </div>
         <table id="tableInventarioUser" class="table table-striped table-bordered table-responsive table-hover nowrap" style="width: 100%;">
             <thead class="bg-info">
                 <tr>
@@ -74,13 +77,69 @@ include("../controllers/dbConection.php");
             </tbody>
         </table>
     </div>
+    <div class="modal fade modal-xl" id="historialMovimientosUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Historial de entregas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">Elemento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Observación</th>
+                            <th scope="col">Fecha</th>
+                        </thead>
+                        <tbody id="bodyHistorialUser">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="../csss/DataTables/datatables.min.js"></script>
 <script>
     new DataTable('#tableInventarioUser', {
         responsive: true,
     });
+
+    new DataTable('#tableHistorial', {
+        responsive: true,
+    });
+
+    $("#historialMovimientosUser").on("show.bs.modal", (event) => {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var tbody = $("#bodyHistorialUser");
+
+        $.ajax({
+            url: '../controllers/getMovimiento.controller.php',
+            type: 'GET',
+            data: {
+                id: id
+            }, success: (response) => {
+                var data = JSON.parse(response)
+                console.log(data);
+                var rowsHtml = data.map(element => `
+                    <tr>
+                        <td>${element.idMovimiento}</td>
+                        <td>${element.elemento}</td>
+                        <td>${element.cantidad}</td>
+                        <td>${element.observacion}</td>
+                        <td>${element.fecha}</td>
+                    </tr>
+                `).join('');
+                tbody.html(rowsHtml)
+            }
+        })
+    })
 </script>
 <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
 <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.min.js"></script>
+
 </html>

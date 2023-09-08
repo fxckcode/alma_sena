@@ -232,7 +232,7 @@ include("../controllers/dbConection.php"); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
+                    <table class="table table-bordered table-striped table-hover table-small" id="tableHistorialDay" style="width: 100%;">
                         <thead>
                             <th scope="col">id</th>
                             <th scope="col">Cliente</th>
@@ -259,6 +259,9 @@ include("../controllers/dbConection.php"); ?>
         responsive: true,
     })
     new DataTable("#tableHistorial", {
+        responsive: true
+    })
+    new DataTable("#tableHistorialDay", {
         responsive: true
     })
 </script>
