@@ -46,14 +46,19 @@
         </div>
     </div>
     </div>
-
+    <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
     <script>
+
         //Autoclose
         window.setTimeout(function() {
             $(".alert").fadeTo(2500, 0).slideDown(1000, function() {
                 $(this).remove();
             });
         }, 1000); //1 segundo y desaparece
+        window.onload = () => {
+                localStorage.clear();
+                $('[data-clicked]').attr('data-clicked', false);
+        }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
