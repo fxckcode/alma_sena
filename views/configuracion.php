@@ -77,6 +77,7 @@ include("../controllers/dbConection.php"); ?>
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Usuarios</button>
         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-categories" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Categorias</button>
         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-tallas" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Tallas</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-historial" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Registros</button>
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -206,6 +207,56 @@ include("../controllers/dbConection.php"); ?>
                 </tr>
               <?php } ?>
             </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="nav-historial" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
+          <h3>Historial global</h3>
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+            <thead>
+              <th>Fecha</th>
+              <th>Cantidad de salidas</th>
+              <th>Interacción</th>
+            </thead>
+            <tbody>
+              <?php $movimientos = $conexion->query("SELECT COUNT(*) AS num_registros, m.fecha, m.* 
+              FROM movimiento AS m 
+              GROUP BY m.fecha 
+              HAVING COUNT(*) > 0");
+              while ($m = $movimientos->fetch_object()) { ?>
+                <tr>
+                  <td><?= $m->fecha ?></td>
+                  <td><?= $m->num_registros ?></td>
+                  <td><a class="btn btn-small btn-primary" data-id="<?= $m->fecha ?>" data-bs-toggle="modal" data-bs-target="#historyByDay">Historial</a></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-xl" id="historyByDay" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Historial segun el día</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+              <thead>
+                <th>Cliente</th>
+                <th>Ficha</th>
+                <th>Elemento</th>
+                <th>Cantidad</th>
+                <th>Observación</th>
+                <th>Fecha</th>
+              </thead>
+              <tbody id="bodyhistoryByDay">
+
+              </tbody>
           </table>
         </div>
       </div>

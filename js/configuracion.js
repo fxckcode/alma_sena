@@ -256,3 +256,33 @@ $("#createTallasForm").submit(function (event) {
         }
     })
 })
+
+
+
+$("#historyByDay").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    var fecha = button.data('id');
+    var tbody = $("#bodyhistoryByDay");
+
+    $.ajax({
+        type: 'GET',
+        url: '../controllers/getMovimiento.controller.php',
+        data: {
+            fecha: fecha
+        }, success: (response) => {
+            var data = JSON.parse(response)
+            console.log(data);
+            var rowsHtml = data.map(element => `
+                <tr>
+                    <td>${element.user}</td>
+                    <td>${element.ficha}</td>
+                    <td>${element.elemento} - ${element.tallas}</td>
+                    <td>${element.cantidad}</td>
+                    <td>${element.observacion}</td>
+                    <td>${element.fecha}</td>
+                </tr>
+            `).join('');
+            tbody.html(rowsHtml);      
+        }
+    })
+})
