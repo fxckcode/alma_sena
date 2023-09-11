@@ -103,8 +103,8 @@ include("../controllers/addElements.controller.php");
           <div class="modal-body">
             <form method="post" id="formAddCant">
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-                <select class="listaCat form-select pe-5 border-primary" id="listaCat" name="">
+                <span class="input-group-text bg-success-subtle " id="">Categoría</span>
+                <select class="listaCat form-select pe-5 " id="listaCat" name="">
                   <?php
                   $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
                   while ($categorias = $sqlCategorias->fetch_object()) {
@@ -118,13 +118,13 @@ include("../controllers/addElements.controller.php");
               <div class="input-group mb-3" id="select2lista" name="select2lista"></div>
 
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-                <input type="number" class="listaCant form-control border-primary" name="listaCant" id="listaCant" />
+                <span class="input-group-text bg-success-subtle ">Cantidad</span>
+                <input type="number" class="listaCant form-control " name="listaCant" id="listaCant" />
               </div>
 
               <div class="input-group">
-                <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-                <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="nota"></textarea>
+                <span class="input-group-text bg-success-subtle ">Nota:</span>
+                <textarea class="listaNota form-control " name="nota" aria-label="With textarea" id="nota"></textarea>
               </div>
 
               <div>
@@ -147,8 +147,8 @@ include("../controllers/addElements.controller.php");
           <div class="modal-body">
             <form id="formAddElement" method="post">
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-                <select class="listaCat form-select pe-5 border-primary" id="listaCat1" name="listaCat">
+                <span class="input-group-text bg-success-subtle" id="">Categoría</span>
+                <select class="listaCat form-select pe-5" id="listaCat1" name="listaCat">
                   <?php
                   $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
                   while ($categorias = $sqlCategorias->fetch_object()) {
@@ -159,12 +159,12 @@ include("../controllers/addElements.controller.php");
               </div>
 
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary">Nombre</span>
-                <input type="text" class="form-control border-primary" name="nombre_elemento" id="nombre_elemento">
+                <span class="input-group-text bg-success-subtle ">Nombre</span>
+                <input type="text" class="form-control " name="nombre_elemento" id="nombre_elemento">
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary" id="">Tallas</span>
-                <select class="listaCat form-select pe-5 border-primary" id="talla" name="talla">
+                <span class="input-group-text bg-success-subtle " id="">Tallas</span>
+                <select class="listaCat form-select pe-5 " id="talla" name="talla">
                   <option value="">Seleccionar...</option>
                   <?php
                   $sqlTallas = $conexion->query("SELECT * FROM tallas WHERE 1");
@@ -175,21 +175,21 @@ include("../controllers/addElements.controller.php");
                 </select>
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary">Marca</span>
-                <input type="text" class="form-control border-primary" name="marca" id="marca">
+                <span class="input-group-text bg-success-subtle ">Marca</span>
+                <input type="text" class="form-control " name="marca" id="marca">
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary">color</span>
-                <input type="text" class="form-control border-primary" name="color" id="color">
+                <span class="input-group-text bg-success-subtle ">color</span>
+                <input type="text" class="form-control " name="color" id="color">
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text bg-success-subtle border-primary">Cantidad</span>
-                <input type="number" class="listaCant form-control border-primary" name="listaCant" id="cantidad" />
+                <span class="input-group-text bg-success-subtle ">Cantidad</span>
+                <input type="number" class="listaCant form-control " name="listaCant" id="cantidad" />
               </div>
 
               <div class="input-group">
-                <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-                <textarea class="listaNota form-control border-primary" name="nota" aria-label="With textarea" id="notaCreate"></textarea>
+                <span class="input-group-text bg-success-subtle ">Nota:</span>
+                <textarea class="listaNota form-control " name="nota" aria-label="With textarea" id="notaCreate"></textarea>
               </div>
               <div>
                 <input class="btn btn-success text-white w-100 mt-2 fw-semibold shadow-sm mb-1" name="btnAdd" type="submit" value="Agregar" />

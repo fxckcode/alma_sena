@@ -114,39 +114,39 @@ $("#editElements").on("show.bs.modal", (event) => {
             <input type="hidden" id="inputTalla" name="inputTalla" value="${data.fkTalla}">
             <input type="hidden" id="inputCat" name="inputCat" value="${data.fkCategoria}">
               <div class="input-group mb-3">
-              <span class="input-group-text bg-success-subtle border-primary" id="">Categoría</span>
-              <select class="listaCat form-select pe-5 border-primary" id="catSelect" name="categoria">
+              <span class="input-group-text bg-success-subtle " id="">Categoría</span>
+              <select class="listaCat form-select pe-5 " id="catSelect" name="categoria">
                 </select>
               </div>
 
               <div class="input-group mb-3">
-                  <span class="input-group-text bg-success-subtle border-primary" id="">Nombre</span>
-                  <input class="inputName pe-5 form-control border-primary" id="inputName" name="inputName" value="${data.elemento}">
+                  <span class="input-group-text bg-success-subtle " id="">Nombre</span>
+                  <input class="inputName pe-5 form-control " id="inputName" name="inputName" value="${data.elemento}">
               </div>
 
               <div class="input-group mb-3">
-                  <span class="input-group-text bg-success-subtle border-primary">Talla</span>
-                  <select class="listaCat form-select pe-5 border-primary" id="tallaSelect" name="talla">
+                  <span class="input-group-text bg-success-subtle ">Talla</span>
+                  <select class="listaCat form-select pe-5 " id="tallaSelect" name="talla">
                 </select>
               </div>
 
               <div class="input-group mb-3">
-                  <span class="input-group-text bg-success-subtle border-primary">Marca</span>
-                  <input type="text" class="inputMarca form-control border-primary" id="inputMarca" name="inputMarca" value="${data.marca}">
+                  <span class="input-group-text bg-success-subtle ">Marca</span>
+                  <input type="text" class="inputMarca form-control " id="inputMarca" name="inputMarca" value="${data.marca}">
               </div>
 
               <div class="input-group mb-3">
-                  <span class="input-group-text bg-success-subtle border-primary" id="">Color</span>
-                  <input select class="inputColor pe-5 form-control border-primary" id="inputColor" name="inputColor" value="${data.color}">
+                  <span class="input-group-text bg-success-subtle " id="">Color</span>
+                  <input select class="inputColor pe-5 form-control " id="inputColor" name="inputColor" value="${data.color}">
               </div>
 
               <div class="input-group mb-3">
-                  <span class="input-group-text bg-success-subtle border-primary" id="">Existencias</span>
-                  <input select class="inputExists pe-5 form-control border-primary" id="inputExists" name="inputExists" value="${parseInt(data.existencias)}">
+                  <span class="input-group-text bg-success-subtle " id="">Existencias</span>
+                  <input select class="inputExists pe-5 form-control " id="inputExists" name="inputExists" value="${parseInt(data.existencias)}">
               </div>
               <div class="input-group">
-                  <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-                  <input class="inputNota form-control form-control border-primary" id="inputNota" name="inputNota" value="${data.observacion}">
+                  <span class="input-group-text bg-success-subtle ">Nota:</span>
+                  <input class="inputNota form-control form-control " id="inputNota" name="inputNota" value="${data.observacion}">
               </div>
 
               <div>

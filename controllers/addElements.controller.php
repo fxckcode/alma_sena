@@ -8,8 +8,8 @@ where e.fkCategoria=c.idCategoria AND e.fkTalla= t.idTalla AND fkCategoria='$cat
 
 
 $resultado=mysqli_query($conexion,$sql);
-$cadena="<span class='input-group-text bg-success-subtle border-primary'>Elemento</span>
-			<select class='listaElem form-select pe-5 border-primary' id='lista2' name='lista2'>";
+$cadena="<span class='input-group-text bg-success-subtle'>Elemento</span>
+			<select class='listaElem form-select pe-5' id='lista2' name='lista2'>";
 
             while ($col=mysqli_fetch_row($resultado)) {
                 $cadena=$cadena.'<option value='.$col[0].'>'.utf8_encode($col[3])." ".utf8_encode($col[11]).'</option>';
