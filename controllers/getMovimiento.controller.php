@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 if (isset($_GET['fecha'])) {
     $fecha = $_GET['fecha'];
     $elementos = [];
-    $datasql = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, m.observacion, e.elemento, e.marca, t.tallas, u.*, m.ficha FROM movimiento as m 
+    $datasql = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, m.observacion, e.elemento, e.marca, t.tallas, u.*, m.ficha, m.tipo_movimiento FROM movimiento as m 
                      JOIN elementos as e ON m.elemento=e.idElemento
                      JOIN tallas as t ON e.fkTalla=t.idTalla 
                      JOIN usuarios as u ON u.id = m.tomador

@@ -273,11 +273,11 @@ $("#historyByDay").on("show.bs.modal", (event) => {
             var data = JSON.parse(response)
             console.log(data);
             var rowsHtml = data.map(element => `
-                <tr>
+                <tr class="${element.tipo_movimiento == 'entrada' ? 'table-success' : 'table-danger' }">
                     <td>${element.user}</td>
                     <td>${element.ficha}</td>
                     <td>${element.elemento} - ${element.tallas}</td>
-                    <td>${element.cantidad}</td>
+                    <td>${element.tipo_movimiento == 'entrada' ? 'Se añadieron elementos' : ''} ${element.tipo_movimiento == 'entrada' ? '+' : ''} ${element.cantidad}</td>
                     <td>${element.observacion}</td>
                     <td>${element.fecha}</td>
                 </tr>

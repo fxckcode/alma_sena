@@ -213,10 +213,10 @@ include("../controllers/dbConection.php"); ?>
       <div class="tab-pane fade" id="nav-historial" role="tabpanel" aria-labelledby="nav-contact-tab">
         <div class="p-4 w-100 h-auto d-flex flex-column gap-2">
           <h3>Historial global</h3>
-          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="historyGlobal">
             <thead>
               <th>Fecha</th>
-              <th>Cantidad de salidas</th>
+              <th>Cantidad de movimientos</th>
               <th>Interacción</th>
             </thead>
             <tbody>
@@ -245,7 +245,7 @@ include("../controllers/dbConection.php"); ?>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;" id="modalHistoryByDate">
               <thead>
                 <th>Cliente</th>
                 <th>Ficha</th>
@@ -376,6 +376,14 @@ include("../controllers/dbConection.php"); ?>
     responsive: true
   })
 
+  new DataTable("#historyGlobal", {
+    responsive: true
+  })
+
+  new DataTable("#modalHistoryByDate", {
+    responsive: true
+  })
+  
   function eliminar(id) {
     var id = parseInt(id)
     console.log(id)
