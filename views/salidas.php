@@ -78,8 +78,8 @@ include("../controllers/dbConection.php"); ?>
             </div>
             <form method="POST" id="salidaForm">
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-success-subtle border-primary" id="">Seleccionar Cliente</span>
-                    <select class="listaCat form-select pe-5 border-primary" id="listaUsers" name="listUsers" required>
+                    <span class="input-group-text bg-success-subtle " id="">Seleccionar Cliente</span>
+                    <select class="listaCat form-select pe-5 " id="listaUsers" name="listUsers" required>
                         <option value="">Seleccionar...</option>
                         <?php
                         $sqlElm = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
@@ -89,12 +89,12 @@ include("../controllers/dbConection.php"); ?>
                     </select>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-success-subtle border-primary">Ficha</span>
-                    <input type="number" placeholder="ID Ficha" id="ficha" name="ficha" class="form-control border-primary ficha">
+                    <span class="input-group-text bg-success-subtle ">Ficha</span>
+                    <input type="number" placeholder="ID Ficha" id="ficha" name="ficha" class="form-control  ficha">
                 </div>
                 <div class="input-group mb-4">
-                    <span class="input-group-text bg-success-subtle border-primary">Nota:</span>
-                    <textarea class="form-control border-primary" name="observación" aria-label="With textarea" id="observacion" placeholder="Nota"></textarea>
+                    <span class="input-group-text bg-success-subtle ">Nota:</span>
+                    <textarea class="form-control " name="observación" aria-label="With textarea" id="observacion" placeholder="Nota"></textarea>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-sm">
