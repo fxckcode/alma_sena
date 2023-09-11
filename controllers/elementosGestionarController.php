@@ -26,7 +26,19 @@ if (!empty($_POST["btnAdd"])) {
     
         }
     }
-    
+
+if (isset($_POST['estado'])) {
+    include("./dbConection.php");
+    $id = intval($_POST['id']);
+    $estado = $_POST['estado'];
+    if ($estado == "desactivar") {
+        $conexion->query("UPDATE elementos SET estado=2 WHERE idElemento=".$id);
+        echo "Elemento desactivado";
+    } else if ($estado == "activar") {
+        $conexion->query("UPDATE elementos SET estado=1 WHERE idElemento=".$id);
+        echo "Elemento activado";
+    }
+}
 
     
 ?>

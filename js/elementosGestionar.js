@@ -103,3 +103,31 @@ $("#formAddElement").submit(function (event) {
         }
     })
 });
+
+function cambiarEstado(id, estado) {
+    if (estado.toLowerCase() == 'desactivar' ) {
+        $.ajax({
+            type: "POST",
+            url: "../controllers/elementosGestionarController.php",
+            data: {
+                id: parseInt(id),
+                estado: 'desactivar'
+            }, success: (response) => {
+                console.log(response)
+                location.reload()
+            }
+        })
+    } else if (estado.toLowerCase() == 'activar') {
+        $.ajax({
+            type: "POST",
+            url: "../controllers/elementosGestionarController.php",
+            data: {
+                id: parseInt(id),
+                estado: 'activar'
+            }, success: (response) => {
+                console.log(response)
+                location.reload()
+            }
+        })
+    }
+}
