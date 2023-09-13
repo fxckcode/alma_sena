@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-09-2023 a las 16:14:44
+-- Tiempo de generación: 13-09-2023 a las 16:38:46
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -81,7 +81,7 @@ CREATE TABLE `elementos` (
 --
 
 INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`, `estado`) VALUES
-(62, 2, 21, 'Casco', 'ninguna', 'Blanco', 10, 'Una caja\n', 'activo');
+(62, 2, 21, 'Casco', 'ninguna', 'Blanco', 11, 'Una caja\n', 'activo');
 
 -- --------------------------------------------------------
 
@@ -99,6 +99,17 @@ CREATE TABLE `movimiento` (
   `observacion` text NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `movimiento`
+--
+
+INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `elemento`, `ficha`, `cantidad`, `observacion`, `fecha`) VALUES
+(54, 'salida', 11223344, 62, 2147483647, 5, 'hola', '2023-09-11'),
+(55, 'salida', 12104533, 62, 231313123, 4, '', '2023-09-11'),
+(56, 'entrada', 12388888, 62, 0, 10, '', '2023-09-11'),
+(57, 'salida', 11223344, 62, 211231231, 2, '', '2023-09-13'),
+(58, 'entrada', 12388888, 62, 0, 2, '', '2023-09-13');
 
 -- --------------------------------------------------------
 
@@ -224,7 +235,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -242,7 +253,7 @@ ALTER TABLE `elementos`
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas`
