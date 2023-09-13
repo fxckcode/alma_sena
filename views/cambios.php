@@ -1,9 +1,13 @@
-<?php
-session_start();
+
+<?php session_start();
 if (empty($_SESSION['id'])) {
   header("Location:../index.php");
 }
-?>
+if ($_SESSION['rol'] == 'user') {
+  header("Location: ./home.php");
+}
+include("../controllers/dbConection.php"); ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -64,6 +68,26 @@ if (empty($_SESSION['id'])) {
       </div>
     </div>
   </nav>
+  <div class="container p-4">
+    <h4 class="mb-3">Seleccione el registro que quiera generar el cambio</h4>
+    <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+      <thead>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Interacción</th>
+      </thead>
+      <tbody>
+        <?php $data = $conexion->query("SELECT m.*, u.* FROM movimiento as m JOIN usuarios as u ON m.tomador = u.id WHERE m.tipo_movimiento='salida'");
+        while ($tableData = $data->fetch_object()) { ?>
+          <tr>
+            <td><?= $tableData->user ?> <br> Ficha: <?= $tableData->ficha ?></td>
+            <td><?= $tableData->fecha ?></td>
+            <td></td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
   <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
