@@ -44,6 +44,9 @@ include("../controllers/dbConection.php"); ?>
             <a class="nav-link mx-2" href="salidas.php">Salidas</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link mx-2" href="cambios.php">Cambios</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link mx-2 active" href="configuracion.php">Configuración</a>
           </li>
         </ul>

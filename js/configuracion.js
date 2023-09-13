@@ -274,7 +274,7 @@ $("#historyByDay").on("show.bs.modal", (event) => {
             console.log(data);
             var rowsHtml = data.map(element => `
                 <tr class="${element.tipo_movimiento == 'entrada' ? 'table-success' : 'table-danger' }">
-                    <td>${element.user}</td>
+                    <td>${element.user} ${element.telefono != '' ? '<br> Tel. ' + element.telefono : '' }</td>
                     <td>${element.ficha}</td>
                     <td>${element.elemento} - ${element.tallas}</td>
                     <td>${element.tipo_movimiento == 'entrada' ? 'Se añadieron elementos' : ''} ${element.tipo_movimiento == 'entrada' ? '+' : ''} ${element.cantidad}</td>

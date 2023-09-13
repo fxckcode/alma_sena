@@ -43,6 +43,9 @@ include("../controllers/dbConection.php"); ?>
                         <a class="nav-link mx-2 active" href="salidas.php">Salidas</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link mx-2" href="cambios.php">Cambios</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link mx-2" href="configuracion.php">Configuración</a>
                     </li>
                 </ul>
@@ -217,7 +220,7 @@ include("../controllers/dbConection.php"); ?>
                             <th scope="col">Fecha</th>
                         </thead>
                         <tbody id="bodyHistorialByUsers">
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -243,7 +246,7 @@ include("../controllers/dbConection.php"); ?>
                             <th scope="col">Fecha</th>
                         </thead>
                         <tbody id="bodyHistorialByDia">
-                            
+
                         </tbody>
                     </table>
                 </div>
