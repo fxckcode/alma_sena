@@ -147,7 +147,7 @@ include("../controllers/dbConection.php"); ?>
                 </thead>
                 <tbody>
                     <?php
-                    $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
+                    $sqlElm = $conexion->query("SELECT e.id as id_element, e.*, c.*, t.* FROM elementos as e, categorias as c, tallas
             as t where e.fk_categoria=c.id AND e.fk_talla=t.id and e.estado='activo'");
                     while ($tableData = $sqlElm->fetch_object()) { ?>
                         <tr>
@@ -158,7 +158,7 @@ include("../controllers/dbConection.php"); ?>
                             <td><?= $tableData->color ?></td>
                             <td><?= $tableData->existencias ?></td>
                             <td>
-                                <a class="btn btn-success btnAdd" data-id="<?= $tableData->id ?>">Agregar</a>
+                                <a class="btn btn-success btnAdd" data-id="<?= $tableData->id_element ?>">Agregar</a>
                             </td>
                         </tr>
                     <?php } ?>
