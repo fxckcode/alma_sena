@@ -162,7 +162,7 @@ $("#editElements").on("show.bs.modal", (event) => {
                 dataType: 'json',
                 success: function (data) {
                     $("#catSelect").html(
-                        data.map((d) => `<option value="${d.idCategoria}" ${categoriaId === parseInt(d.idCategoria) ? 'selected' : ''}>${d.nombreCat}</option>`)
+                        data.map((d) => `<option value="${d.id}" ${categoriaId === parseInt(d.id) ? 'selected' : ''}>${d.nombre}</option>`)
                     );
                 }
             });

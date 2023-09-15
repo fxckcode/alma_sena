@@ -113,7 +113,7 @@ include("../controllers/dbConection.php"); ?>
                         <tbody id="bodyCar">
                             <?php
                             $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento, e.existencias FROM carrito as c 
-                                                        JOIN elementos as e ON c.fkElemento = e.idElemento
+                                                        JOIN elementos as e ON c.fk_elemento = e.idElemento
                                                         JOIN tallas as t ON e.fkTalla = t.idTalla");
                             while ($tableData = $sqlElm->fetch_object()) { ?>
                                 <tr>
@@ -150,10 +150,10 @@ include("../controllers/dbConection.php"); ?>
                 <tbody>
                     <?php
                     $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
-            as t where e.fkCategoria=c.idCategoria AND e.fkTalla=t.idTalla and e.estado='activo'");
+            as t where e.fkCategoria=c.id AND e.fkTalla=t.idTalla and e.estado='activo'");
                     while ($tableData = $sqlElm->fetch_object()) { ?>
                         <tr>
-                            <td><?= $tableData->nombreCat ?></td>
+                            <td><?= $tableData->nombre ?></td>
                             <td><?= $tableData->elemento ?></td>
                             <td><?= $tableData->tallas ?></td>
                             <td><?= $tableData->marca ?></td>

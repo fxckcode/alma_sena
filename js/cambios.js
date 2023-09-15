@@ -23,7 +23,7 @@ $("#historyEdit").on("show.bs.modal", (event) => {
                         <input type="hidden" value="${element.fkCategoria}" /> 
                         <select class="form-select">
                             <option>
-                                ${element.nombreCat}
+                                ${element.nombre}
                             </option>
                         </select>
                     </td>

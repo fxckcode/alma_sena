@@ -112,7 +112,7 @@ include("../controllers/addElements.controller.php");
                   $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
                   while ($categorias = $sqlCategorias->fetch_object()) {
                   ?>
-                    <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
+                    <option value="<?= $categorias->id ?>"><?= $categorias->nombre ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -156,7 +156,7 @@ include("../controllers/addElements.controller.php");
                   $sqlCategorias = $conexion->query("SELECT * FROM categorias WHERE 1");
                   while ($categorias = $sqlCategorias->fetch_object()) {
                   ?>
-                    <option value="<?= $categorias->idCategoria ?>"><?= $categorias->nombreCat ?></option>
+                    <option value="<?= $categorias->id ?>"><?= $categorias->nombre ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -220,10 +220,10 @@ include("../controllers/addElements.controller.php");
       <tbody>
         <?php
         $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
-            as t where e.fkCategoria=c.idCategoria AND e.fkTalla=t.idTalla");
+            as t where e.fkCategoria=c.id AND e.fkTalla=t.idTalla");
         while ($tableData = $sqlElm->fetch_object()) { ?>
           <tr class="<?= $tableData->estado == 'activo' ? '' : 'table-danger' ?>">
-            <td><?= $tableData->nombreCat ?></td>
+            <td><?= $tableData->nombre ?></td>
             <td><?= $tableData->elemento ?></td>
             <td><?= $tableData->tallas ?></td>
             <td><?= $tableData->marca ?></td>

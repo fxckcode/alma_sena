@@ -37,10 +37,10 @@ if (isset($_GET['id']) && isset($_GET['fecha']) && isset($_GET['ficha'])) {
     $id = intval($_GET['id']);
     $ficha = intval($_GET['ficha']);
     $elementos = [];
-    $sql = $conexion->query("SELECT e.marca, m.*, t.tallas as talla, e.elemento as elemento, c.nombreCat, e.fkCategoria FROM movimiento as m
+    $sql = $conexion->query("SELECT e.marca, m.*, t.tallas as talla, e.elemento as elemento, c.nombre, e.fkCategoria FROM movimiento as m
                             JOIN elementos as e ON m.elemento = e.idElemento 
                             JOIN tallas as t ON e.fkTalla=t.idTalla
-                            JOIN categorias as c ON e.fkCategoria = c.idCategoria
+                            JOIN categorias as c ON e.fkCategoria = c.id
                             WHERE m.tomador=".$id." AND m.fecha='".$fecha."' AND m.ficha=".$ficha);
     while ($element = $sql->fetch_assoc()) {
         $elementos[] = $element;

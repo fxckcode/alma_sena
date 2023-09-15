@@ -5,14 +5,14 @@ if (isset($_POST['idElemento'])) {
 
     $idElemento = intval($_POST['idElemento']);
 
-    $sql = $conexion->query("INSERT INTO carrito(fkElemento) VALUES (" . $idElemento . ")");
+    $sql = $conexion->query("INSERT INTO carrito(fk_elemento) VALUES (" . $idElemento . ")");
     echo $sql;
 }
 
 if (isset($_POST['btnDel'])) {
     $idElemento = intval($_POST['btnDel']);
 
-    $sql = $conexion->query("DELETE FROM carrito WHERE carrito.fkElemento=" . $idElemento);
+    $sql = $conexion->query("DELETE FROM carrito WHERE carrito.fk_elemento=" . $idElemento);
     echo $sql;
 }
 

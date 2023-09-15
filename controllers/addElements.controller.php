@@ -4,7 +4,7 @@ include ("dbConection.php");
 if (isset($_POST['categoria'])) {
 $categoria=$_POST['categoria'];
 $sql="SELECT * FROM elementos as e, categorias as c, tallas AS t 
-where e.fkCategoria=c.idCategoria AND e.fkTalla= t.idTalla AND fkCategoria='$categoria' AND e.estado='activo'";
+where e.fkCategoria=c.id AND e.fkTalla= t.idTalla AND fkCategoria='$categoria' AND e.estado='activo'";
 
 
 $resultado=mysqli_query($conexion,$sql);
