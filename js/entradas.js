@@ -76,7 +76,7 @@ $("#formAddCant").submit(function (event) {
                 type: 'POST',
                 url: "../controllers/entradas.controller.php",
                 data: {
-                    idElemento: $("#lista2 option:selected").val(),
+                    id: $("#lista2 option:selected").val(),
                     cantidad: $("#listaCant").val(),
                     nota: $("#nota").val(),
                     btnAdd: true
@@ -110,9 +110,9 @@ $("#editElements").on("show.bs.modal", (event) => {
         dataType: 'json',
         success: function (data) {
             form.html(`
-            <input type="hidden" id="id" name="inputId" value="${data.idElemento}">
-            <input type="hidden" id="inputTalla" name="inputTalla" value="${data.fkTalla}">
-            <input type="hidden" id="inputCat" name="inputCat" value="${data.fkCategoria}">
+            <input type="hidden" id="id" name="inputId" value="${data.id}">
+            <input type="hidden" id="inputTalla" name="inputTalla" value="${data.fk_talla}">
+            <input type="hidden" id="inputCat" name="inputCat" value="${data.fk_categoria}">
               <div class="input-group mb-3">
               <span class="input-group-text bg-success-subtle " id="">Categoría</span>
               <select class="listaCat form-select pe-5 " id="catSelect" name="categoria">
@@ -173,7 +173,7 @@ $("#editElements").on("show.bs.modal", (event) => {
                 dataType: 'json',
                 success: function (data) {
                     $("#tallaSelect").html(
-                        data.map((d) => `<option value="${d.idTalla}" ${tallaId === parseInt(d.idTalla) ? 'selected' : ''}>${d.tallas}</option>`)
+                        data.map((d) => `<option value="${d.id}" ${tallaId === parseInt(d.id) ? 'selected' : ''}>${d.tallas}</option>`)
                     );
                 }
             });

@@ -12,7 +12,7 @@ if (!empty($_POST['inputId'])) {
   $Exists = intval($_POST['inputExists']);
   $Nota = $_POST['inputNota'];
 
-  $query = "UPDATE elementos SET fkCategoria=" . $Cat . ", fkTalla=" . $Talla . ", elemento='" . $Name . "', marca='" . $Marca . "', color='" . $Color . "', existencias=" . $Exists . ", observacion='" . $Nota . "' WHERE idElemento=" . $Id;
+  $query = "UPDATE elementos SET fk_categoria=" . $Cat . ", fk_talla=" . $Talla . ", elemento='" . $Name . "', marca='" . $Marca . "', color='" . $Color . "', existencias=" . $Exists . ", observacion='" . $Nota . "' WHERE id=" . $Id;
 
   mysqli_query($conexion, $query);
 }

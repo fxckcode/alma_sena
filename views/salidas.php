@@ -112,9 +112,9 @@ include("../controllers/dbConection.php"); ?>
                         </thead>
                         <tbody id="bodyCar">
                             <?php
-                            $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.idElemento, e.existencias FROM carrito as c 
-                                                        JOIN elementos as e ON c.fk_elemento = e.idElemento
-                                                        JOIN tallas as t ON e.fkTalla = t.idTalla");
+                            $sqlElm = $conexion->query("SELECT c.id, e.elemento, t.tallas, e.marca, e.id, e.existencias FROM carrito as c 
+                                                        JOIN elementos as e ON c.fk_elemento = e.id
+                                                        JOIN tallas as t ON e.fk_talla = t.id");
                             while ($tableData = $sqlElm->fetch_object()) { ?>
                                 <tr>
                                     <td><?= $tableData->id ?></td>
@@ -122,7 +122,7 @@ include("../controllers/dbConection.php"); ?>
                                     <td><?= $tableData->tallas ?></td>
                                     <td><input type="number" value="1" class="w-75" min="1" max="<?= $tableData->existencias ?>"></td>
                                     <td>
-                                        <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->idElemento ?>">Eliminar</a>
+                                        <a href="" class="btn btn-danger btnDel" data-id="<?= $tableData->id ?>">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -150,7 +150,7 @@ include("../controllers/dbConection.php"); ?>
                 <tbody>
                     <?php
                     $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
-            as t where e.fkCategoria=c.id AND e.fkTalla=t.idTalla and e.estado='activo'");
+            as t where e.fk_categoria=c.id AND e.fk_talla=t.id and e.estado='activo'");
                     while ($tableData = $sqlElm->fetch_object()) { ?>
                         <tr>
                             <td><?= $tableData->nombre ?></td>
@@ -160,7 +160,7 @@ include("../controllers/dbConection.php"); ?>
                             <td><?= $tableData->color ?></td>
                             <td><?= $tableData->existencias ?></td>
                             <td>
-                                <a class="btn btn-success btnAdd" data-id="<?= $tableData->idElemento ?>">Agregar</a>
+                                <a class="btn btn-success btnAdd" data-id="<?= $tableData->id ?>">Agregar</a>
                             </td>
                         </tr>
                     <?php } ?>

@@ -29,20 +29,20 @@ $("a.btnAdd").each(function () {
 
 $("a.btnAdd").on("click", function (e) {
     e.preventDefault();
-    var idElemento = $(this).attr("data-id");
+    var id = $(this).attr("data-id");
 
     if ($(this).attr('data-clicked') == 'true') {
         return;
     }
 
-    console.log(idElemento)
+    console.log(id)
     $.ajax({
         url: "../controllers/carrito.controller.php",
         type: "POST",
-        data: { idElemento: idElemento },
+        data: { id: id },
         success: (response) => {
             $(this).removeClass('btn-success');
-            localStorage.setItem('clicked-' + idElemento, true);
+            localStorage.setItem('clicked-' + id, true);
             location.reload();
         },
         error: (error) => {
@@ -56,8 +56,8 @@ $("a.btnAdd").on("click", function (e) {
 
 $("a.btnDel").on("click", function (e) {
     e.preventDefault();
-    var idElemento = $(this).attr("data-id");
-    console.log(idElemento)
+    var id = $(this).attr("data-id");
+    console.log(id)
     Swal.fire({
         title: '¿Estás seguro que quieres eliminar este elemento de este formulario?',
         icon: 'warning',
@@ -72,10 +72,10 @@ $("a.btnDel").on("click", function (e) {
                 type: 'POST',
                 url: "../controllers/carrito.controller.php",
                 data: {
-                    btnDel: idElemento
+                    btnDel: id
                 },
                 success: () => {
-                    localStorage.setItem('clicked-' + idElemento, false);
+                    localStorage.setItem('clicked-' + id, false);
                     Swal.fire(
                         'Elemento Eliminado',
                         'El elemento seleccionado ha sido eliminado exitosamente',
@@ -118,23 +118,23 @@ $("#salidaForm").on("submit", function (e) {
     }).then((result) => {
         if (result.isConfirmed) {
             $("#bodyCar tr").each(function () {
-                var idElemento = $(this).find(".btnDel").attr("data-id");
+                var id = $(this).find(".btnDel").attr("data-id");
                 var cantidad = $(this).find("input[type='number']").val();
 
-                console.log(idElemento, cantidad, clienteSeleccionado)
+                console.log(id, cantidad, clienteSeleccionado)
 
                 $.ajax({
                     url: "../controllers/carrito.controller.php",
                     type: "POST",
                     data: {
                         clienteId: clienteSeleccionado,
-                        elementoId: idElemento,
+                        elementoId: id,
                         cantidad: cantidad,
                         ficha: ficha,
                         observacion: observacion
                     },
                     success: function (response) {
-                        console.log("Elemento " + idElemento + " procesado exitosamente.");
+                        console.log("Elemento " + id + " procesado exitosamente.");
                         console.log(response)
                         processedRows++;
 
@@ -147,7 +147,7 @@ $("#salidaForm").on("submit", function (e) {
                         }
                     },
                     error: function (error) {
-                        console.error("Error procesando el elemento " + idElemento);
+                        console.error("Error procesando el elemento " + id);
                     }
                 });
             });
@@ -171,7 +171,7 @@ $("#historialByUsuario").on("show.bs.modal", (event) => {
             var data = JSON.parse(response)
             var rowsHtml = data.map(element => `
                 <tr>
-                    <td>${element.idMovimiento}</td>
+                    <td>${element.id}</td>
                     <td>${element.elemento}</td>
                     <td>${element.marca}</td>
                     <td>${element.cantidad}</td>
@@ -205,7 +205,7 @@ $("#historialMovimientosByDay").on("show.bs.modal", (event) => {
             console.log(data);
             var rowsHtml = data.map(element => `
                 <tr>
-                    <td>${element.idMovimiento}</td>
+                    <td>${element.id}</td>
                     <td>${element.user}</td>
                     <td>${element.ficha}</td>
                     <td>${element.elemento} - ${element.tallas}</td>

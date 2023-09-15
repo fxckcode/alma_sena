@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2023 a las 16:38:46
+-- Tiempo de generación: 15-09-2023 a las 16:13:04
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `carrito` (
   `id` int(11) NOT NULL,
-  `fkElemento` int(11) DEFAULT NULL
+  `fk_elemento` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -39,15 +39,15 @@ CREATE TABLE `carrito` (
 --
 
 CREATE TABLE `categorias` (
-  `idCategoria` int(11) NOT NULL,
-  `nombreCat` varchar(32) NOT NULL
+  `id` int(11) NOT NULL,
+  `nombre` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categorias` (`idCategoria`, `nombreCat`) VALUES
+INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (1, 'Sin categoria'),
 (2, 'Cabeza'),
 (3, 'Visual'),
@@ -65,9 +65,9 @@ INSERT INTO `categorias` (`idCategoria`, `nombreCat`) VALUES
 --
 
 CREATE TABLE `elementos` (
-  `idElemento` int(11) NOT NULL,
-  `fkCategoria` int(11) NOT NULL,
-  `fkTalla` int(10) NOT NULL,
+  `id` int(11) NOT NULL,
+  `fk_categoria` int(11) NOT NULL,
+  `fk_talla` int(10) NOT NULL,
   `elemento` varchar(50) NOT NULL,
   `marca` varchar(50) NOT NULL,
   `color` varchar(10) NOT NULL,
@@ -80,8 +80,9 @@ CREATE TABLE `elementos` (
 -- Volcado de datos para la tabla `elementos`
 --
 
-INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `marca`, `color`, `existencias`, `observacion`, `estado`) VALUES
-(62, 2, 21, 'Casco', 'ninguna', 'Blanco', 11, 'Una caja\n', 'activo');
+INSERT INTO `elementos` (`id`, `fk_categoria`, `fk_talla`, `elemento`, `marca`, `color`, `existencias`, `observacion`, `estado`) VALUES
+(62, 2, 21, 'Casco', 'ninguna', 'Blanco', 6, 'Una caja\n', 'activo'),
+(63, 6, 3, 'Guaantes', 'X-Fit', 'Negro', 9, '', 'activo');
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,7 @@ INSERT INTO `elementos` (`idElemento`, `fkCategoria`, `fkTalla`, `elemento`, `ma
 --
 
 CREATE TABLE `movimiento` (
-  `idMovimiento` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `tipo_movimiento` enum('salida','entrada') NOT NULL,
   `tomador` int(50) NOT NULL,
   `elemento` int(11) NOT NULL,
@@ -104,12 +105,16 @@ CREATE TABLE `movimiento` (
 -- Volcado de datos para la tabla `movimiento`
 --
 
-INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `elemento`, `ficha`, `cantidad`, `observacion`, `fecha`) VALUES
+INSERT INTO `movimiento` (`id`, `tipo_movimiento`, `tomador`, `elemento`, `ficha`, `cantidad`, `observacion`, `fecha`) VALUES
 (54, 'salida', 11223344, 62, 2147483647, 5, 'hola', '2023-09-11'),
 (55, 'salida', 12104533, 62, 231313123, 4, '', '2023-09-11'),
 (56, 'entrada', 12388888, 62, 0, 10, '', '2023-09-11'),
 (57, 'salida', 11223344, 62, 211231231, 2, '', '2023-09-13'),
-(58, 'entrada', 12388888, 62, 0, 2, '', '2023-09-13');
+(58, 'entrada', 12388888, 62, 0, 2, '', '2023-09-13'),
+(59, 'salida', 11223344, 62, 231313, 1, '2131', '2023-09-14'),
+(60, 'salida', 11223344, 62, 23123131, 2, '', '2023-09-14'),
+(61, 'salida', 11223344, 62, 2121212, 2, '', '2023-09-14'),
+(62, 'salida', 11223344, 63, 2121212, 3, '', '2023-09-14');
 
 -- --------------------------------------------------------
 
@@ -118,7 +123,7 @@ INSERT INTO `movimiento` (`idMovimiento`, `tipo_movimiento`, `tomador`, `element
 --
 
 CREATE TABLE `tallas` (
-  `idTalla` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `tallas` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -126,7 +131,7 @@ CREATE TABLE `tallas` (
 -- Volcado de datos para la tabla `tallas`
 --
 
-INSERT INTO `tallas` (`idTalla`, `tallas`) VALUES
+INSERT INTO `tallas` (`id`, `tallas`) VALUES
 (2, 'Talla s'),
 (3, 'Talla m'),
 (4, 'Talla L'),
@@ -190,27 +195,27 @@ INSERT INTO `usuarios` (`id`, `user`, `telefono`, `password`, `email`, `rol`) VA
 --
 ALTER TABLE `carrito`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fkElemento` (`fkElemento`);
+  ADD KEY `fkElemento` (`fk_elemento`);
 
 --
 -- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`idCategoria`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `elementos`
 --
 ALTER TABLE `elementos`
-  ADD PRIMARY KEY (`idElemento`),
-  ADD KEY `idTipo` (`fkTalla`),
-  ADD KEY `fkCategoria` (`fkCategoria`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idTipo` (`fk_talla`),
+  ADD KEY `fkCategoria` (`fk_categoria`);
 
 --
 -- Indices de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  ADD PRIMARY KEY (`idMovimiento`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `tomador` (`tomador`),
   ADD KEY `elemento` (`elemento`),
   ADD KEY `elemento_2` (`elemento`);
@@ -219,7 +224,7 @@ ALTER TABLE `movimiento`
 -- Indices de la tabla `tallas`
 --
 ALTER TABLE `tallas`
-  ADD PRIMARY KEY (`idTalla`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -235,31 +240,31 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `elementos`
 --
 ALTER TABLE `elementos`
-  MODIFY `idElemento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `idMovimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas`
 --
 ALTER TABLE `tallas`
-  MODIFY `idTalla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
@@ -269,21 +274,21 @@ ALTER TABLE `tallas`
 -- Filtros para la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`fkElemento`) REFERENCES `elementos` (`idElemento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`fk_elemento`) REFERENCES `elementos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `elementos`
 --
 ALTER TABLE `elementos`
-  ADD CONSTRAINT `elementos_ibfk_1` FOREIGN KEY (`fkTalla`) REFERENCES `tallas` (`idTalla`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `elementos_ibfk_2` FOREIGN KEY (`fkCategoria`) REFERENCES `categorias` (`idCategoria`) ON DELETE CASCADE;
+  ADD CONSTRAINT `elementos_ibfk_1` FOREIGN KEY (`fk_talla`) REFERENCES `tallas` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `elementos_ibfk_2` FOREIGN KEY (`fk_categoria`) REFERENCES `categorias` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
   ADD CONSTRAINT `movimiento_ibfk_1` FOREIGN KEY (`tomador`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `movimiento_ibfk_2` FOREIGN KEY (`elemento`) REFERENCES `elementos` (`idElemento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `movimiento_ibfk_2` FOREIGN KEY (`elemento`) REFERENCES `elementos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

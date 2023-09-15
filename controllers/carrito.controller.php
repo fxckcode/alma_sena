@@ -1,18 +1,18 @@
 <?php
 include("dbConection.php");
 
-if (isset($_POST['idElemento'])) {
+if (isset($_POST['id'])) {
 
-    $idElemento = intval($_POST['idElemento']);
+    $id = intval($_POST['id']);
 
-    $sql = $conexion->query("INSERT INTO carrito(fk_elemento) VALUES (" . $idElemento . ")");
+    $sql = $conexion->query("INSERT INTO carrito(fk_elemento) VALUES (" . $id . ")");
     echo $sql;
 }
 
 if (isset($_POST['btnDel'])) {
-    $idElemento = intval($_POST['btnDel']);
+    $id = intval($_POST['btnDel']);
 
-    $sql = $conexion->query("DELETE FROM carrito WHERE carrito.fk_elemento=" . $idElemento);
+    $sql = $conexion->query("DELETE FROM carrito WHERE carrito.fk_elemento=" . $id);
     echo $sql;
 }
 
@@ -33,7 +33,7 @@ if (isset($_POST['clienteId'])) {
 
     if ($stmt->execute()) {
         echo "Registro insertado exitosamente";
-        $updateStmt = $conexion->prepare("UPDATE elementos SET existencias = existencias - ? WHERE idElemento = ?");
+        $updateStmt = $conexion->prepare("UPDATE elementos SET existencias = existencias - ? WHERE id = ?");
         $updateStmt->bind_param("ii", $cantidad, $elemento);
 
         if ($updateStmt->execute()) {

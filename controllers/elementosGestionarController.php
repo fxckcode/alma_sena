@@ -32,10 +32,10 @@ if (isset($_POST['estado'])) {
     $id = intval($_POST['id']);
     $estado = $_POST['estado'];
     if ($estado == "desactivar") {
-        $conexion->query("UPDATE elementos SET estado=2 WHERE idElemento=".$id);
+        $conexion->query("UPDATE elementos SET estado=2 WHERE id=".$id);
         echo "Elemento desactivado";
     } else if ($estado == "activar") {
-        $conexion->query("UPDATE elementos SET estado=1 WHERE idElemento=".$id);
+        $conexion->query("UPDATE elementos SET estado=1 WHERE id=".$id);
         echo "Elemento activado";
     }
 }

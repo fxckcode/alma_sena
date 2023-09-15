@@ -173,7 +173,7 @@ include("../controllers/addElements.controller.php");
                   $sqlTallas = $conexion->query("SELECT * FROM tallas WHERE 1");
                   while ($tallas = $sqlTallas->fetch_object()) {
                   ?>
-                    <option value="<?= $tallas->idTalla ?>"><?= $tallas->tallas ?></option>
+                    <option value="<?= $tallas->id ?>"><?= $tallas->tallas ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -220,7 +220,7 @@ include("../controllers/addElements.controller.php");
       <tbody>
         <?php
         $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
-            as t where e.fkCategoria=c.id AND e.fkTalla=t.idTalla");
+            as t where e.fk_categoria=c.id AND e.fk_talla=t.id");
         while ($tableData = $sqlElm->fetch_object()) { ?>
           <tr class="<?= $tableData->estado == 'activo' ? '' : 'table-danger' ?>">
             <td><?= $tableData->nombre ?></td>
@@ -231,7 +231,7 @@ include("../controllers/addElements.controller.php");
             <td><?= $tableData->existencias ?></td>
             <td><?= $tableData->observacion ?></td>
             <td>
-              <a class="btn btn-small btn-warning" data-id="<?= $tableData->idElemento ?>" data-bs-toggle="modal" data-bs-target="#editElements">
+              <a class="btn btn-small btn-warning" data-id="<?= $tableData->id ?>" data-bs-toggle="modal" data-bs-target="#editElements">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
@@ -240,11 +240,11 @@ include("../controllers/addElements.controller.php");
               <!-- Botón eliminar -->
               
               <?= $tableData->estado == 'activo' ? '
-                <a class="btn btn-small btn-danger" onclick="cambiarEstado('.$tableData->idElemento.', \'desactivar\')">
+                <a class="btn btn-small btn-danger" onclick="cambiarEstado('.$tableData->id.', \'desactivar\')">
                 Desactivar
               </a>
               ' : '
-              <a  class="btn btn-small btn-success" onclick="cambiarEstado('.$tableData->idElemento.', \'activar\')">
+              <a  class="btn btn-small btn-success" onclick="cambiarEstado('.$tableData->id.', \'activar\')">
                 Activar
               </a>
               '  ?>
@@ -288,13 +288,13 @@ include("../controllers/addElements.controller.php");
             </thead>
             <tbody>
               <?php
-              $sqlElm = $conexion->query("SELECT m.idMovimiento, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
+              $sqlElm = $conexion->query("SELECT m.id, m.cantidad, m.fecha, u.user, u.telefono, t.tallas, e.elemento FROM movimiento as m 
                                                         JOIN usuarios as u ON m.tomador = u.id
-                                                        JOIN elementos as e ON m.elemento = e.idElemento 
-                                                        JOIN tallas as t ON e.fkTalla = t.idTalla WHERE m.tipo_movimiento='entrada'");
+                                                        JOIN elementos as e ON m.elemento = e.id 
+                                                        JOIN tallas as t ON e.fk_talla = t.id WHERE m.tipo_movimiento='entrada'");
               while ($tableData = $sqlElm->fetch_object()) { ?>
                 <tr>
-                  <td><?= $tableData->idMovimiento ?></td>
+                  <td><?= $tableData->id ?></td>
                   <td><strong>Nombre: </strong> <?= $tableData->user ?> <br> <strong>Telefono: </strong> <?= $tableData->telefono ?></td>
                   <td> <strong><?= $tableData->elemento ?></strong> <br> <strong>Talla: </strong> <?= $tableData->tallas ?> </td>
                   <td> + <?= $tableData->cantidad ?></td>

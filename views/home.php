@@ -62,7 +62,7 @@ include("../controllers/dbConection.php");
             <tbody>
                 <?php
                 $sqlElm = $conexion->query("SELECT * FROM elementos as e, categorias as c, tallas
-                as t where e.fkCategoria=c.id AND e.fkTalla=t.idTalla");
+                as t where e.fk_categoria=c.id AND e.fk_talla=t.id");
                 while ($tableData = $sqlElm->fetch_object()) { ?>
                     <tr>
                         <td><?= $tableData->nombre ?></td>
@@ -127,7 +127,7 @@ include("../controllers/dbConection.php");
                 console.log(data);
                 var rowsHtml = data.map(element => `
                     <tr>
-                        <td>${element.idMovimiento}</td>
+                        <td>${element.id}</td>
                         <td>${element.elemento}</td>
                         <td>${element.cantidad}</td>
                         <td>${element.observacion}</td>

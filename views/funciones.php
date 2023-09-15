@@ -4,10 +4,10 @@ function obtenerelementosEnCarrito()
 {
     $bd = obtenerConexion();
     iniciarSesionSiNoEstaIniciada();
-    $sentencia = $bd->prepare("SELECT elementos.idElemento, elementos.elemento, elementos.observacion, elementos.existencias
+    $sentencia = $bd->prepare("SELECT elementos.id, elementos.elemento, elementos.observacion, elementos.existencias
      FROM elementos
      INNER JOIN carrito_usuarios
-     ON elementos.idElemento = carrito_usuarios.id_producto
+     ON elementos.id = carrito_usuarios.id_producto
      WHERE carrito_usuarios.id_sesion = ?");
     $idSesion = session_id();
     $sentencia->execute([$idSesion]);

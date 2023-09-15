@@ -10,6 +10,6 @@ if (isset($_POST['nombre'])) {
 
 if (isset($_POST['id'])) {
     $id = intval($_POST['id']);
-    $conexion->query("DELETE FROM tallas WHERE idTalla=".$id);
+    $conexion->query("DELETE FROM tallas WHERE id=".$id);
     echo "Talla eliminada con exito";
 }

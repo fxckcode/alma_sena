@@ -20,7 +20,7 @@ $("#historyEdit").on("show.bs.modal", (event) => {
             var rowsHtml = data.map(element => `
                 <tr>
                     <td>
-                        <input type="hidden" value="${element.fkCategoria}" /> 
+                        <input type="hidden" value="${element.fk_categoria}" /> 
                         <select class="form-select">
                             <option>
                                 ${element.nombre}
