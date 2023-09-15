@@ -1,4 +1,3 @@
-
 <?php session_start();
 if (empty($_SESSION['id'])) {
   header("Location:../index.php");
@@ -16,8 +15,14 @@ include("../controllers/dbConection.php"); ?>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="../assets/senaGreen.png" type="image/x-icon">
-  <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../csss/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../csss/DataTables/Responsive-2.5.0/css/responsive.dataTables.min.css">
   <title>Movimientos</title>
+  <script src="../utils/jquery/jquery-3.7.0.min.js"></script>
+  <link href="../csss/DataTables/datatables.min.css" rel="stylesheet">
+  <script src="../utils/package/dist/sweetalert2.all.min.js"></script>
+  <script src="../utils/package/dist/sweetalert2.min.css"></script>
+  <link rel="stylesheet" href="../csss/generalStyles.css">
 </head>
 
 <body>
@@ -77,18 +82,49 @@ include("../controllers/dbConection.php"); ?>
         <th>Interacción</th>
       </thead>
       <tbody>
-        <?php $data = $conexion->query("SELECT m.*, u.* FROM movimiento as m JOIN usuarios as u ON m.tomador = u.id WHERE m.tipo_movimiento='salida'");
+        <?php $data = $conexion->query("SELECT m.*, u.* FROM movimiento as m JOIN usuarios as u ON m.tomador = u.id WHERE m.tipo_movimiento='salida' GROUP BY m.fecha, m.ficha, m.tomador");
         while ($tableData = $data->fetch_object()) { ?>
           <tr>
             <td><?= $tableData->user ?> <br> Ficha: <?= $tableData->ficha ?></td>
             <td><?= $tableData->fecha ?></td>
-            <td></td>
+            <td><a class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#historyEdit" data-user="<?= $tableData->id ?>" data-fecha="<?= $tableData->fecha ?>" data-ficha="<?= $tableData->ficha ?>">Editar registro</a></td>
           </tr>
         <?php } ?>
       </tbody>
     </table>
   </div>
+  <div class="modal fade modal-xl" id="historyEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar salida</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <table class="table table-bordered table-striped table-hover table-small table-responsive" style="width: 100%;">
+              <thead>
+                <th>Categoria</th>
+                <th>Elemento</th>
+                <th>Marca</th>
+                <th>Talla</th>
+                <th>Cantidad</th>
+              <tbody id="bodyHistoryEdit">
+                
+              </tbody>
+              </thead>
+            </table>
+            <button type="submit" class="btn btn-small btn-success">Actualizar Salida</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../csss/DataTables/datatables.min.js"></script>
   <script src="../csss/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../csss/DataTables/Responsive-2.5.0/js/responsive.dataTables.js"></script>
+  <script src="../csss/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/cambios.js"></script>
 </body>
 
 </html>
