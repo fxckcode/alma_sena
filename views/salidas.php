@@ -186,7 +186,10 @@ include("../controllers/dbConection.php"); ?>
                                 <tr>
                                     <td><?= $tableData->user ?> <br> Ficha: <?= $tableData->ficha ?></td>
                                     <td><?= $tableData->fecha ?></td>
-                                    <td><a class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#historyEdit" data-user="<?= $tableData->id ?>" data-fecha="<?= $tableData->fecha ?>" data-ficha="<?= $tableData->ficha ?>">Editar registro</a></td>
+                                    <td>
+                                        <a href="" class="btn btn-small btn-success" data-bs-toggle="modal" data-bs-target="#historialByDateAndUser" data-user="<?= $tableData->id ?>" data-fecha="<?= $tableData->fecha ?>" data-ficha="<?= $tableData->ficha ?>">Ver historial</a>
+                                        <a class="btn btn-small btn-primary" data-user="<?= $tableData->id ?>" data-fecha="<?= $tableData->fecha ?>" data-ficha="<?= $tableData->ficha ?>">Editar registro</a>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -195,7 +198,7 @@ include("../controllers/dbConection.php"); ?>
             </div>
         </div>
     </div>
-    <div class="modal fade modal-xl" id="historialByUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modal-xl" id="historialByDateAndUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="modal-header">
@@ -205,15 +208,14 @@ include("../controllers/dbConection.php"); ?>
                 <div class="modal-body">
                     <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
                         <thead>
-                            <th scope="col">id</th>
-                            <th scope="col">Elemento</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Observación</th>
-                            <th scope="col">Fecha</th>
+                            <th>Categoria</th>
+                            <th>Elemento</th>
+                            <th>Marca</th>
+                            <th>Talla</th>
+                            <th>Cantidad</th>
                         </thead>
-                        <tbody id="bodyHistorialByUsers">
-
+                        <tbody id="bodyHistorialByDateAndUser">
+                                    
                         </tbody>
                     </table>
                 </div>
