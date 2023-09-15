@@ -178,22 +178,17 @@ include("../controllers/dbConection.php"); ?>
                 <div class="modal-body">
                     <table class="table table-bordered table-striped table-hover table-small" id="tableHistorial" style="width: 100%;">
                         <thead>
-                            <th scope="col">id</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Interacción</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Interacción</th>
                         </thead>
                         <tbody>
-                            <?php
-                            $sqlElm = $conexion->query("SELECT * FROM usuarios WHERE rol='user'");
-                            while ($tableData = $sqlElm->fetch_object()) { ?>
+                            <?php $data = $conexion->query("SELECT m.*, u.* FROM movimiento as m JOIN usuarios as u ON m.tomador = u.id WHERE m.tipo_movimiento='salida' GROUP BY m.fecha, m.ficha, m.tomador");
+                            while ($tableData = $data->fetch_object()) { ?>
                                 <tr>
-                                    <td><?= $tableData->id ?></td>
-                                    <td><?= $tableData->user ?></td>
-                                    <td><?= $tableData->telefono ?></td>
-                                    <td><?= $tableData->email ?></td>
-                                    <td><button class="btn btn-success" data-bs-toggle="modal" title="Historial por cada usuario" data-bs-target="#historialByUsuario" data-id="<?= $tableData->id ?>">Historial</button></td>
+                                    <td><?= $tableData->user ?> <br> Ficha: <?= $tableData->ficha ?></td>
+                                    <td><?= $tableData->fecha ?></td>
+                                    <td><a class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#historyEdit" data-user="<?= $tableData->id ?>" data-fecha="<?= $tableData->fecha ?>" data-ficha="<?= $tableData->ficha ?>">Editar registro</a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
